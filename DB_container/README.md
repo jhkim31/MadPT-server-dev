@@ -1,27 +1,17 @@
 # madPT Database Container
 
 ## 사용방법
+https://hub.docker.com/repository/docker/jhkimdocker/capstone_db_image
 
 ### 1. Dockerhub 다운로드
 
 ```bash
-docker pull jhkimdocker/db_test_image
+docker pull jhkimdocker/capstone_db_image
 
-docker run -d --name {cname} jhkimdocker/db_test_image
+docker run -d -p 3306:3306 --name {container_name} jhkimdocker/db_test_image
 
-# cli 접근
-docker exec -it {cname} bash
-```
-
-### 2. build 해서 사용
-
-```bash
-docker build -t {image_name} .
-
-docker run -d --name {cname} {image_name}
-
-# cli 접근
-docker exec -it {cname} bash
+# cli 접근 (선택)
+docker exec -it {container_name} bash
 ```
 
 ## Dockerfile
