@@ -3,16 +3,15 @@ package com.example.MadPtApi.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-public class User {
-
+public class Member {
     @Id
     @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
@@ -34,6 +33,6 @@ public class User {
     private List<Diet> dietList;
     */
 
-    @OneToMany(mappedBy = "user")
-    List<Diet> dietList;
+    @OneToMany(mappedBy = "member")
+    List<Diet> dietList = new ArrayList<>();
 }

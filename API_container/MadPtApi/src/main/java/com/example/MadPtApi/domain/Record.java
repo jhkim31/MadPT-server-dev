@@ -18,6 +18,14 @@ public class Record {
 
     private Date endTime;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "exercise_id")
+    private Exercise exercise;
+
     @Embedded
     private ExerciseData exerciseData;
 }

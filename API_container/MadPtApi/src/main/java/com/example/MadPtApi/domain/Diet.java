@@ -3,6 +3,7 @@ package com.example.MadPtApi.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,12 +18,12 @@ public class Diet {
 
     // user
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     // dietfood
     @OneToMany(mappedBy = "diet")
-    private List<DietFood> dietFoodList;
+    private List<DietFood> dietFoodList = new ArrayList<>();
 
     private Date dietDate;
 

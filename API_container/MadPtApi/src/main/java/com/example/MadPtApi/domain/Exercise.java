@@ -18,5 +18,6 @@ public class Exercise {
     @Enumerated(EnumType.STRING)
     private ExerciseType exerciseType;
 
+    @Embedded
     private ExerciseData exerciseData;
 }
