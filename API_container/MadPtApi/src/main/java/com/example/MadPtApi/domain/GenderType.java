@@ -1,5 +1,5 @@
 package com.example.MadPtApi.domain;
 
-public enum GenderStatus {
+public enum GenderType {
     MALE, FEMALE
 }
