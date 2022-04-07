@@ -1,6 +1,7 @@
 package com.example.MadPtApi.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 public class Member {
     @Id
     @GeneratedValue
@@ -26,7 +28,7 @@ public class Member {
     private double height;
 
     @Enumerated(EnumType.STRING)
-    private GenderStatus genderStatus;
+    private GenderType genderType;
 /*
     // diet 테이블의 user 참조
     @OneToMany(mappedBy = "user")

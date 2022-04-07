@@ -5,6 +5,8 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.util.Date;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 public class Record {
@@ -18,11 +20,11 @@ public class Record {
 
     private Date endTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 

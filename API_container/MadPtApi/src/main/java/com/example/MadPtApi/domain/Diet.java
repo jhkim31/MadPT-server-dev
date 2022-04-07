@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 public class Diet {
@@ -17,7 +19,7 @@ public class Diet {
     private Long id;
 
     // user
-    @ManyToOne
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -30,4 +32,14 @@ public class Diet {
     @Enumerated(EnumType.STRING)
     private DietType dietType;
 
+    //==관계연산 메소드==//
+    public void setMember(Member member) {
+        this.member = member;
+        member.getDietList().add(this);
+    }
+
+    public void addDietFood(DietFood dietFood) {
+        dietFoodList.add(dietFood);
+        dietFood.setDiet(this);
+    }
 }
