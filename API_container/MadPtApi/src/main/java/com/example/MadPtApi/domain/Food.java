@@ -1,14 +1,14 @@
 package com.example.MadPtApi.domain;
 
+import com.example.MadPtApi.domain.FoodData;
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 public class Food {
 
     @Id
@@ -20,5 +20,9 @@ public class Food {
 
     private String makerName;
 
-    private FoodData foodData;
+    @Embedded
+    private FoodData foodData = new FoodData();
+
+    @Enumerated(EnumType.STRING)
+    private FoodType foodType;
 }
