@@ -1,18 +1,16 @@
-name: Release Branch Build Test
+name: Develop Branch Build Test
 
 on:
   push:
     branches: 
-      - 'release/v**' 
+      - develop
 
 jobs:
-  build-and-push:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: DB Container Build Test
         uses: docker/build-push-action@v2
