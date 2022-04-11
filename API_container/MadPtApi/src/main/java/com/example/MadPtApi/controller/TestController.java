@@ -24,4 +24,17 @@ public class TestController {
 
         return jo.toString();
     }
+
+    @GetMapping("/test2")
+    public String customJson2() {
+        JsonObject jo = new JsonObject();
+
+        long time = new Date().getTime();
+        jo.addProperty("string", "hello-world");
+        jo.addProperty("integer", 123);
+        jo.addProperty("double", 1.23);
+        jo.addProperty("timestamp", time);
+
+        return jo.toString();
+    }
 }
