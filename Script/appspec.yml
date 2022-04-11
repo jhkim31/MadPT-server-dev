@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+files:
+  - source:  /
+    destination: /home/ec2-user/docker_script
+permissions:
+  - object: /home/ec2-user/docker_script
+    owner: ec2-user
+    group: ec2-user
+
+hooks:
+    AfterInstall:
+      - location: ./image_pull.sh
+        timeout: 360
+        runas: ec2-user
+
+      - location: ./container_stop.sh
+        timeout: 60
+        runsas: ec2-user
+
+      - location: ./new_container_run.sh
+        timeout: 180
+        runas: ec2-user
