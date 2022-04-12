@@ -37,4 +37,7 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     List<Diet> dietList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<Record> recordList = new ArrayList<>();
 }
