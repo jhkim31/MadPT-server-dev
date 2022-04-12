@@ -32,9 +32,11 @@ class DietServiceTest {
         member.setName("Kim");
         em.persist(member);
 
-        Food food = new Food();
-        food.setFoodName("제육 볶음");
-        food.setFoodType(FoodType.CUSTOM);
+        Food food = Food.builder()
+                .foodName("제육볶음")
+                .foodData(new FoodData())
+                .foodType(FoodType.NUTRITION)
+                .build();
         em.persist(food);
 
         double weight = 100.0;

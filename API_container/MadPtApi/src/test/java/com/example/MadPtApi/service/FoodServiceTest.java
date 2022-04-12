@@ -1,6 +1,7 @@
 package com.example.MadPtApi.service;
 
 import com.example.MadPtApi.domain.Food;
+import com.example.MadPtApi.domain.FoodData;
 import com.example.MadPtApi.domain.FoodType;
 import com.example.MadPtApi.repository.FoodRepository;
 import org.junit.jupiter.api.Test;
@@ -25,13 +26,17 @@ class FoodServiceTest {
     @Test
     public void 음식_리스트_조회() throws Exception {
         // given
-        Food food1 = new Food();
-        food1.setFoodName("제육볶음");
-        food1.setFoodType(FoodType.NUTRITION);
+        Food food1 = Food.builder()
+                .foodName("제육볶음")
+                .foodData(new FoodData())
+                .foodType(FoodType.NUTRITION)
+                .build();
 
-        Food food2 = new Food();
-        food2.setFoodName("제육");
-        food2.setFoodType(FoodType.NUTRITION);
+        Food food2 = Food.builder()
+                .foodName("제육")
+                .foodData(new FoodData())
+                .foodType(FoodType.NUTRITION)
+                .build();
 
         // when
         foodService.saveFood(food1);

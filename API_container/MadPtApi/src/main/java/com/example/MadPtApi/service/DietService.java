@@ -44,7 +44,7 @@ public class DietService {
     /**
      * 날짜 별 식단 정보 조회
      */
-    public List<Diet> findDiet(Date start, Date end, Long memberId) {
+    public List<Diet> findDiet(Long memberId, LocalDateTime start, LocalDateTime end) {
         // 엔티티 조회
         Member member = memberRepository.findOne(memberId);
         // member 조회 안되면 예외 처리
