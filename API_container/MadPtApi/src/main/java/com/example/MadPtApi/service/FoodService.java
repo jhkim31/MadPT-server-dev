@@ -4,16 +4,19 @@ import com.example.MadPtApi.domain.Food;
 import com.example.MadPtApi.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class FoodService {
 
     private final FoodRepository foodRepository;
 
     // 음식 저장
+    @Transactional
     public Long saveFood(Food food) {
         foodRepository.save(food);
         return food.getId();
