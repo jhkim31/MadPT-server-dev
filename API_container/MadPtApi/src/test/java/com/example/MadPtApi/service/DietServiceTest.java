@@ -43,7 +43,7 @@ class DietServiceTest {
         LocalDateTime dateTime = LocalDateTime.now();
 
         // when
-        Long dietId = dietService.addDiet(member.getId(), food.getId(), dateTime, weight, DietType.Lunch);
+        Long dietId = dietService.addDiet(member.getId(), food.getId(), dateTime, weight, DietType.Lunch, FoodType.NUTRITION);
 
         // then
         Diet diet = dietRepository.findById(dietId).get();

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,10 +24,16 @@ public class DietService {
      * 식단 저장
      */
     @Transactional
-    public Long addDiet(Long memberId, Long foodId, LocalDateTime date, double weight, DietType dietType) {
+    public Long addDiet(Long memberId, Long foodId, LocalDateTime date, double weight, DietType dietType, FoodType foodType) {
         // 엔티티 조회
         Member member = memberRepository.findOne(memberId);
-        Food food = foodRepository.findOne(foodId);
+        Food food = null;
+
+        if (foodType.equals(FoodType.NUTRITION)) {
+            food = foodRepository.findOne(foodId);
+        }else {
+            //food = Food.createCustomFood();
+        }
 
         // DietFood 생성
         DietFood dietFood = DietFood.createDietFood(food, weight);
@@ -39,6 +44,10 @@ public class DietService {
         dietRepository.save(diet);
 
         return diet.getId();
+    }
+
+    public Long addCustomDiet(Long memberId, String foodName, LocalDateTime date, double weight, DietType dietType, FoodType foodType) {
+        return 0L;
     }
 
     /**
