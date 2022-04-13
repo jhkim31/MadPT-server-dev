@@ -1,7 +1,7 @@
 # MadPT-server-dev
 ## [DB Container](/DB_container)
 ## [API Container](/API_container)
-## [프로젝트 관리](/.github)
+## [프로젝트 관리](/.github/PROJECT_GUIDE.md)
 # MadPT 서버 개발 repo입니다.
 
 ## master branch
