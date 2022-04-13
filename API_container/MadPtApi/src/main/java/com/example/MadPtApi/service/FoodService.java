@@ -1,6 +1,8 @@
 package com.example.MadPtApi.service;
 
 import com.example.MadPtApi.domain.Food;
+import com.example.MadPtApi.domain.FoodData;
+import com.example.MadPtApi.domain.FoodType;
 import com.example.MadPtApi.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,4 +28,5 @@ public class FoodService {
     public List<Food> findFoods(String foodName) {
         return foodRepository.findFoodByName(foodName);
     }
+
 }

@@ -37,4 +37,18 @@ public class Food {
         this.foodData = foodData;
         this.foodType = foodType;
     }
+
+    //==생성 메서드==//
+
+    /**
+     * 커스텀 food 생성
+     */
+    public static Food createCustomFood(String foodName, double kcal) {
+
+        return Food.builder()
+                .foodName(foodName)
+                .foodData(FoodData.builder().default_kcal(kcal).build())
+                .foodType(FoodType.CUSTOM)
+                .build();
+    }
 }
