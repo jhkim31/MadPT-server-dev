@@ -1,5 +1,4 @@
 package com.example.MadPtApi.controller;
-
 import com.example.MadPtApi.domain.Food;
 import com.example.MadPtApi.dto.FoodDto;
 import com.example.MadPtApi.service.FoodService;

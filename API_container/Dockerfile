@@ -12,5 +12,6 @@ RUN ls
 RUN chmod 755 gradlew 
 RUN ./gradlew build
 
-WORKDIR ./build/libs
+WORKDIR /workspace/MadPtApi/build/libs
 
+CMD java -jar MadPtApi-MADPT_VERSION.jar

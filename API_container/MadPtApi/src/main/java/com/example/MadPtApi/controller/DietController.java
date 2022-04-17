@@ -1,5 +1,4 @@
 package com.example.MadPtApi.controller;
-
 import com.example.MadPtApi.dto.dietDto.DietSaveRequestDto;
 import com.example.MadPtApi.service.DietService;
 import lombok.RequiredArgsConstructor;
