@@ -7,10 +7,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DietSaveRequestDto {
-    private String memberId;
     private String foodId;
     private String foodName;
-    private String foodType;
     private String dietType;
     private int weight;
+    private int count;
+    private String unit;
+    private boolean isCustom;
 }

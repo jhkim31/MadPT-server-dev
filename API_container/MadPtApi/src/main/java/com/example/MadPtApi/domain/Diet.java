@@ -45,12 +45,12 @@ public class Diet {
     }
 
     //==생성 메서드==//
-    public static Diet createDiet(Member member, LocalDateTime date ,DietType dietType, DietFood... dietFoods) {
+    public static Diet createDiet(Member member, LocalDateTime date ,DietType dietType, List<DietFood> dietFoodList) {
         Diet diet = new Diet();
         diet.setMember(member);
         diet.setDietDate(date);
         diet.setDietType(dietType);
-        for (DietFood dietFood : dietFoods) {
+        for (DietFood dietFood : dietFoodList) {
             diet.addDietFood(dietFood);
         }
 

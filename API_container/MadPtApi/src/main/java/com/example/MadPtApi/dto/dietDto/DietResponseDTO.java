@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DietDto {
+public class DietResponseDTO {
     private String foodName;
     private LocalDateTime localDateTime;
     private double kcal;

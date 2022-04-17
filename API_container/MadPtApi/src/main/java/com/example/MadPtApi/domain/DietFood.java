@@ -32,10 +32,12 @@ public class DietFood {
     private int count;
 
     //==생성 메서드==//
-    public static DietFood createDietFood(Food food, double foodWeight) {
+    public static DietFood createDietFood(Food food, double foodWeight, int count, String unit) {
         DietFood dietFood = new DietFood();
         dietFood.setFood(food);
         dietFood.setFoodWeight(foodWeight);
+        dietFood.setCount(count);
+        dietFood.setUnit(unit);
 
         return dietFood;
     }

@@ -1,6 +1,7 @@
 package com.example.MadPtApi.service;
 
 import com.example.MadPtApi.domain.*;
+import com.example.MadPtApi.dto.dietDto.DietSaveRequestDto;
 import com.example.MadPtApi.repository.DietRepository;
 import com.example.MadPtApi.repository.FoodRepository;
 import com.example.MadPtApi.repository.MemberRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,34 +23,32 @@ public class DietService {
     private final FoodRepository foodRepository;
 
     /**
-     * 식단 저장
+     * 식단 List 저장
      */
-    @Transactional
-    public Long addDiet(Long memberId, Long foodId, LocalDateTime date, double weight, DietType dietType, FoodType foodType) {
-        // 엔티티 조회
+    public Long addDietList(Long memberId, LocalDateTime date, String dietType, List<DietSaveRequestDto> dietSaveRequestDtoList) {
+        List<DietFood> dietFoodList = new ArrayList<>();
         Member member = memberRepository.findOne(memberId);
-        Food food = null;
 
-        if (foodType.equals(FoodType.NUTRITION)) {
-            food = foodRepository.findOne(foodId);
-        }else {
-            //food = Food.createCustomFood();
+        for (DietSaveRequestDto dto : dietSaveRequestDtoList) {
+            Food food = null;
+            if (dto.isCustom()) {
+                food = Food.builder().foodName(dto.getFoodName()).build(); // 커스텀 입력시 Food 생성
+                foodRepository.save(food);
+            }
+            else {
+                Long foodId = Long.parseLong(dto.getFoodId().trim());
+                food = foodRepository.findOne(foodId);
+            }
+            // DietFood 생성
+            DietFood dietFood = DietFood.createDietFood(food, dto.getWeight(), dto.getCount(), dto.getUnit());
+            dietFoodList.add(dietFood);
         }
 
-        // DietFood 생성
-        DietFood dietFood = DietFood.createDietFood(food, weight);
-
-        // Diet 생성
-        Diet diet = Diet.createDiet(member, date, dietType, dietFood);
-
+        Diet diet = Diet.createDiet(member, date, DietType.valueOf(dietType), dietFoodList);
         dietRepository.save(diet);
-
         return diet.getId();
     }
 
-    public Long addCustomDiet(Long memberId, String foodName, LocalDateTime date, double weight, DietType dietType, FoodType foodType) {
-        return 0L;
-    }
 
     /**
      * 날짜 별 식단 정보 조회
