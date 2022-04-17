@@ -5,12 +5,11 @@ import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/food")
-public class FoodController {
-    @GetMapping("/list")
+public class TEST_FoodController {
+    @GetMapping("/list-dev")
     public String customJson(
             @RequestParam(defaultValue="제육") String food_name
     ) {

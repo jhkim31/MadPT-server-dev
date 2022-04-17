@@ -5,14 +5,12 @@ import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/statistic")
-public class StatisticController {
-    @GetMapping("/exercise-record")
+public class TEST_StatisticController {
+    @GetMapping("/exercise-record-dev")
     public String customJson(
             @RequestParam(defaultValue="2022/04/13") String start_day,
             @RequestParam(defaultValue="2022/04/13") String end_day
@@ -43,7 +41,7 @@ public class StatisticController {
         return returnData.toString();
     }
 
-    @GetMapping("/diet")
+    @GetMapping("/diet-dev")
     public String getDiet(
             @RequestParam(defaultValue="2022/04/13") String start_day,
             @RequestParam(defaultValue="2022/04/13") String end_day

@@ -1,18 +1,14 @@
 package com.example.MadPtApi.controller;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/fitness")
-public class FitnessController {
-    @PostMapping("/save-results")
+public class TEST_FitnessController {
+    @PostMapping("/save-results-dev")
     public String post(
             @RequestBody Map<String, Object> requestData
     ) {
