@@ -21,14 +21,16 @@ public class FoodRepository {
     public void save(Food food) {
         em.persist(food);
     }
-    // 조회
 
-    // 여러개 조회
+    // 조회
+    public Food findOne(Long id) {
+        return em.find(Food.class, id);
+    }
+    // 음식 이름으로 여러개 조회
     public List<Food> findFoodByName (String foodName) {
         return em.createQuery("select f from Food f where f.foodName like :foodName", Food.class)
                 .setParameter("foodName", "%"+foodName +"%")
                 .getResultList();
     }
 
-    // 커스텀 입력 저장
 }
