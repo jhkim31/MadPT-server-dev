@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @Setter
@@ -35,9 +37,9 @@ public class Member {
     private List<Diet> dietList;
     */
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = LAZY)
     List<Diet> dietList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = LAZY)
     List<Record> recordList = new ArrayList<>();
 }
