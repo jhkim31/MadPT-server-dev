@@ -33,5 +33,4 @@ public class FoodRepository {
                 .getResultList();
     }
 
-    // 커스텀 입력 저장
 }

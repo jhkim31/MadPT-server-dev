@@ -24,18 +24,18 @@ public class Food {
     private String makerName;
 
     @Embedded
-    private FoodData foodData = new FoodData();
+    private FoodData foodData;
 
-    @Enumerated(EnumType.STRING)
-    private FoodType foodType;
+    private boolean isCustom;
+
 
     @Builder
-    public Food(Long id, String foodName, String makerName, FoodData foodData, FoodType foodType) {
+    public Food(Long id, String foodName, String makerName, FoodData foodData, boolean isCustom) {
         this.id = id;
         this.foodName = foodName;
         this.makerName = makerName;
         this.foodData = foodData;
-        this.foodType = foodType;
+        this.isCustom = isCustom;
     }
 
     //==생성 메서드==//
@@ -48,7 +48,6 @@ public class Food {
         return Food.builder()
                 .foodName(foodName)
                 .foodData(FoodData.builder().default_kcal(kcal).build())
-                .foodType(FoodType.CUSTOM)
                 .build();
     }
 }
