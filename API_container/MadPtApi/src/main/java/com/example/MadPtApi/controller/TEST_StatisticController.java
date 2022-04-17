@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/statistic")
-public class StatisticController {
+public class TEST_StatisticController {
     @GetMapping("/exercise-record")
     public String customJson(
             @RequestParam(defaultValue="2022/04/13") String start_day,

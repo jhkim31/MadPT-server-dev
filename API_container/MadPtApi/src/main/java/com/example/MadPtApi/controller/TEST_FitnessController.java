@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/fitness")
-public class FitnessController {
+public class TEST_FitnessController {
     @PostMapping("/save-results")
     public String post(
             @RequestBody Map<String, Object> requestData
