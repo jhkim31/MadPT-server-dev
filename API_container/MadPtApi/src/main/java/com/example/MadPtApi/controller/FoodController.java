@@ -10,9 +10,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/food")
 public class FoodController {
-    @GetMapping("/get-food-list")
+    @GetMapping("/list")
     public String customJson(
-            @RequestParam(defaultValue="1649855760593") long timestamp,
             @RequestParam(defaultValue="제육") String food_name
     ) {
         JsonObject returnData = new JsonObject();
