@@ -8,7 +8,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/diet")
 public class TEST_DietController {
-    @PostMapping("/daily-diet")
+    @PostMapping("/daily-diet-dev")
     public String post(
             @RequestBody Map<String, Object> requestData
     ) {

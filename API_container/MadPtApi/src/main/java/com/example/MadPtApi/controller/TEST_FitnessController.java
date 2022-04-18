@@ -12,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/fitness")
 public class TEST_FitnessController {
-    @PostMapping("/save-results")
+    @PostMapping("/save-results-dev")
     public String post(
             @RequestBody Map<String, Object> requestData
     ) {

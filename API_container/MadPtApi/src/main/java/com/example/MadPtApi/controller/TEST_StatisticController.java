@@ -12,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/statistic")
 public class TEST_StatisticController {
-    @GetMapping("/exercise-record")
+    @GetMapping("/exercise-record-dev")
     public String customJson(
             @RequestParam(defaultValue="2022/04/13") String start_day,
             @RequestParam(defaultValue="2022/04/13") String end_day
@@ -43,7 +43,7 @@ public class TEST_StatisticController {
         return returnData.toString();
     }
 
-    @GetMapping("/diet")
+    @GetMapping("/diet-dev")
     public String getDiet(
             @RequestParam(defaultValue="2022/04/13") String start_day,
             @RequestParam(defaultValue="2022/04/13") String end_day
