@@ -10,14 +10,6 @@ permissions:
 
 hooks:
     AfterInstall:
-      - location: ./image_pull.sh
+      - location: ./docker_script.sh
         timeout: 360
-        runas: ec2-user
-
-      - location: ./container_stop.sh
-        timeout: 60
-        runsas: ec2-user
-
-      - location: ./new_container_run.sh
-        timeout: 180
-        runas: ec2-user
+        runas: ec2-user       
