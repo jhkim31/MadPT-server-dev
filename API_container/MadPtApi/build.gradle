@@ -35,6 +35,6 @@ dependencies {
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
