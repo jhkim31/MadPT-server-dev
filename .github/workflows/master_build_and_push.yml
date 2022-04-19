@@ -16,14 +16,9 @@ jobs:
           fetch-depth: 0      
       - name: version
         run: |
-          sed -i 's/MADPT_VERSION/${{secrets.VERSION}}/g' ./Script/image_pull.sh
-          sed -i 's/MADPT_VERSION/${{secrets.VERSION}}/g' ./Script/new_container_run.sh
+          sed -i 's/MADPT_VERSION/${{secrets.VERSION}}/g' ./Script/docker_script.sh
           sed -i 's/MADPT_VERSION/${{secrets.VERSION}}/g' ./API_container/MadPtApi/build.gradle
           sed -i 's/MADPT_VERSION/${{secrets.VERSION}}/g' ./API_container/Dockerfile
-          cat ./Script/image_pull.sh
-          cat ./Script/new_container_run.sh
-          cat ./API_container/MadPtApi/build.gradle
-          cat ./API_container/Dockerfile
 
       - name: Login to Dockerhub
         uses: docker/login-action@v1
