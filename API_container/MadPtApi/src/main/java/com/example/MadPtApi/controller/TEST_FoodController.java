@@ -10,7 +10,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/food")
 public class TEST_FoodController {
-    @GetMapping("/list")
+    @GetMapping("/list-dev")
     public String customJson(
             @RequestParam(defaultValue="제육") String food_name
     ) {
