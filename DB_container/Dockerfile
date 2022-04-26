@@ -1,6 +1,7 @@
 FROM mariadb:10.5
 
-COPY ./DB_container/data /docker-entrypoint-initdb.d
+COPY ./DB_container/sql /docker-entrypoint-initdb.d
+COPY ./DB_container/cnf /etc/mysql/conf.d
 COPY ./DB_container/scheduling /workspace
 COPY ./DB_container/docker-entrypoint.sh /usr/local/bin/
 
