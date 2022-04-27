@@ -4,8 +4,10 @@ import com.example.MadPtApi.service.DietService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.TimeZone;
 
 @RestController
 @RequestMapping("/diet")
@@ -15,8 +17,15 @@ public class DietController {
     private final DietService dietService;
 
     @PostMapping
-    public void saveDiet(@RequestHeader("memberId") Long id, @RequestBody String date, @RequestBody String diet_type, @RequestBody List<DietSaveRequestDto> dietSaveRequestDto) {
-        dietService.addDietList(id, LocalDateTime.parse(date), diet_type, dietSaveRequestDto);
+    public boolean saveDiet(@RequestHeader("memberId") Long id, @RequestBody DietSaveRequestDto dietSaveRequestDto) {
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(dietSaveRequestDto.getDate()), TimeZone.getDefault().toZoneId());
+        System.out.println(localDateTime);
+        System.out.println(dietSaveRequestDto.getDietType());
+        System.out.println(dietSaveRequestDto.getDietList().get(0).getFoodName());
+        System.out.println("check");
+        Long diet_id = dietService.addDietList(id, localDateTime, dietSaveRequestDto.getDietType(), dietSaveRequestDto.getDietList());
+        System.out.println("diet saved : " + diet_id);
+        return true;
     }
 
 }
