@@ -26,7 +26,6 @@ class FoodServiceTest {
     FoodService foodService;
 
     @Test
-    @Commit
     public void 음식_리스트_조회() throws Exception {
         // given
         Food food1 = Food.builder()
@@ -59,5 +58,17 @@ class FoodServiceTest {
         List<Food> list = foodService.findFoods("제육");
         assertEquals(2, list.size());
     }
+    @Test
+    public void 음식_조회_디비() throws Exception {
+        // given
+        String foodName = "꿩불고기";
+        // when
+        List<Food> list = foodService.findFoods(foodName);
+        Food food = list.get(0);
+        // then
+        assertEquals(500, food.getFoodData().getDefault_weight());
+        assertEquals(368.8, food.getFoodData().getDefault_kcal());
+        assertEquals("충주", food.getMakerName());
 
+    }
 }

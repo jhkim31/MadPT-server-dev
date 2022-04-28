@@ -44,7 +44,7 @@ public class DietFood {
 
     //==비지니스 로직==//
     public double getKcal() {
-        double kcal = food.getFoodData().getDefault_kcal();
+        double kcal = food.getFoodData().getDefaultKcal();
         // 음식 데이터 다시 까봐야됌
         return 0;
     }

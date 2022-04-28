@@ -49,7 +49,7 @@ public class Food {
 
         return Food.builder()
                 .foodName(foodName)
-                .foodData(FoodData.builder().default_kcal(kcal).build())
+                .foodData(FoodData.builder().defaultKcal(kcal).build())
                 .build();
     }
 }

@@ -22,11 +22,6 @@ public class FoodController {
 
     @GetMapping("/food-list")
     public List<FoodDto> getFoodList(@RequestParam(defaultValue = "default",required = false) String food_name) {
-        System.out.println("FoodController 실행");
-        List<FoodDto> collected = foodService.findFoods(food_name).stream().map(f -> mapper.map(f, FoodDto.class)).collect(Collectors.toList());
-        for (FoodDto d : collected) {
-            System.out.println(d.getFoodName());
-        }
         return foodService.findFoods(food_name).stream().map(f -> mapper.map(f, FoodDto.class)).collect(Collectors.toList());
     }
 
