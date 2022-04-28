@@ -1,114 +1,229 @@
--- --------------------------------------------------------
--- 호스트:                          localhost
--- 서버 버전:                        10.5.15-MariaDB-1:10.5.15+maria~focal - mariadb.org binary distribution
--- 서버 OS:                        debian-linux-gnu
--- HeidiSQL 버전:                  11.3.0.6295
--- --------------------------------------------------------
+-- MariaDB dump 10.19  Distrib 10.7.3-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: MadPT
+-- ------------------------------------------------------
+-- Server version	10.7.3-MariaDB-1:10.7.3+maria~focal
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+--
+-- Current Database: `MadPT`
+--
 
--- MadPT 데이터베이스 구조 내보내기
-CREATE DATABASE IF NOT EXISTS `MadPT`/*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `MadPT` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+
 USE `MadPT`;
 
--- 테이블 MadPT.diet 구조 내보내기
-CREATE TABLE IF NOT EXISTS `diet` (
-  `diet_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `food_id` int(11) DEFAULT NULL,
-  `type` int(2) DEFAULT NULL,
-  `weight` int(11) DEFAULT NULL,
-  `count` int(11) DEFAULT NULL,
-  `unit` varchar(50) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
-  PRIMARY KEY (`diet_id`),
-  KEY `user_id` (`user_id`),
-  KEY `food_id` (`food_id`),
-  CONSTRAINT `FK_diet_food` FOREIGN KEY (`food_id`) REFERENCES `food` (`food_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_diet_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+--
+-- Table structure for table `diet`
+--
 
--- 테이블 데이터 MadPT.diet:~0 rows (대략적) 내보내기
-DELETE FROM `diet`;
+DROP TABLE IF EXISTS `diet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `diet` (
+  `diet_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `diet_date` datetime(6) DEFAULT NULL,
+  `diet_type` varchar(255) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`diet_id`),
+  KEY `FK9o446srb6o6fm3lklugo9mq0v` (`member_id`),
+  CONSTRAINT `FK9o446srb6o6fm3lklugo9mq0v` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `diet`
+--
+
+LOCK TABLES `diet` WRITE;
 /*!40000 ALTER TABLE `diet` DISABLE KEYS */;
 /*!40000 ALTER TABLE `diet` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- 테이블 MadPT.exercise 구조 내보내기
-CREATE TABLE IF NOT EXISTS `exercise` (
-  `exercise_id` int(11) NOT NULL AUTO_INCREMENT,
-  `exercise_name` varchar(50) DEFAULT NULL,
-  `type` varchar(50) DEFAULT NULL,
+--
+-- Table structure for table `diet_food`
+--
+
+DROP TABLE IF EXISTS `diet_food`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `diet_food` (
+  `diet_food_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `count` int(11) NOT NULL,
+  `food_weight` double NOT NULL,
+  `unit` varchar(255) DEFAULT NULL,
+  `diet_id` bigint(20) DEFAULT NULL,
+  `food_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`diet_food_id`),
+  KEY `FKg8ebdt611y8sqd6pa4e47bnqq` (`diet_id`),
+  KEY `FKn0gmvmwvs43r9cs0ihtoaieni` (`food_id`),
+  CONSTRAINT `FKg8ebdt611y8sqd6pa4e47bnqq` FOREIGN KEY (`diet_id`) REFERENCES `diet` (`diet_id`),
+  CONSTRAINT `FKn0gmvmwvs43r9cs0ihtoaieni` FOREIGN KEY (`food_id`) REFERENCES `food` (`food_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `diet_food`
+--
+
+LOCK TABLES `diet_food` WRITE;
+/*!40000 ALTER TABLE `diet_food` DISABLE KEYS */;
+/*!40000 ALTER TABLE `diet_food` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `exercise`
+--
+
+DROP TABLE IF EXISTS `exercise`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `exercise` (
+  `exercise_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `exercise_type` varchar(255) DEFAULT NULL,
+  `exercise_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`exercise_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- 테이블 데이터 MadPT.exercise:~0 rows (대략적) 내보내기
-DELETE FROM `exercise`;
+--
+-- Dumping data for table `exercise`
+--
+
+LOCK TABLES `exercise` WRITE;
 /*!40000 ALTER TABLE `exercise` DISABLE KEYS */;
 /*!40000 ALTER TABLE `exercise` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- 테이블 MadPT.food 구조 내보내기
-CREATE TABLE IF NOT EXISTS `food` (
-  `food_id` int(11) NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `exercise_routine`
+--
+
+DROP TABLE IF EXISTS `exercise_routine`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `exercise_routine` (
+  `exercise_routine_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `member_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`exercise_routine_id`),
+  KEY `FKiadmkna943odcxo0plobpm2jh` (`member_id`),
+  CONSTRAINT `FKiadmkna943odcxo0plobpm2jh` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `exercise_routine`
+--
+
+LOCK TABLES `exercise_routine` WRITE;
+/*!40000 ALTER TABLE `exercise_routine` DISABLE KEYS */;
+/*!40000 ALTER TABLE `exercise_routine` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `food`
+--
+
+DROP TABLE IF EXISTS `food`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `food` (
+  `food_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `default_carbohydrate` double NOT NULL,
+  `default_fat` double NOT NULL,
+  `default_kcal` double NOT NULL,
+  `default_protein` double NOT NULL,
+  `default_weight` double NOT NULL,
   `food_name` varchar(1000) DEFAULT NULL,
+  `is_custom` bit(1) NOT NULL,
   `maker_name` varchar(100) DEFAULT NULL,
-  `default_weight` double DEFAULT NULL,
-  `default_kcal` double DEFAULT NULL,
-  `dafault_carbohydrate` double DEFAULT NULL,
-  `default_protein` double DEFAULT NULL,
-  `default_fat` double DEFAULT NULL,
   PRIMARY KEY (`food_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- 테이블 데이터 MadPT.food:~0 rows (대략적) 내보내기
-DELETE FROM `food`;
+--
+-- Dumping data for table `food`
+--
+
+LOCK TABLES `food` WRITE;
 /*!40000 ALTER TABLE `food` DISABLE KEYS */;
 /*!40000 ALTER TABLE `food` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- 테이블 MadPT.record 구조 내보내기
-CREATE TABLE IF NOT EXISTS `record` (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `exercise_id` int(11) NOT NULL,
-  `start_time` datetime DEFAULT NULL,
-  `end_time` datetime DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,
-  `sets` int(11) DEFAULT NULL,
-  `reps` int(11) DEFAULT NULL,
-  PRIMARY KEY (`record_id`),
-  KEY `FK_record_user` (`user_id`),
-  KEY `FK_record_exercise` (`exercise_id`),
-  CONSTRAINT `FK_record_exercise` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`exercise_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_record_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+--
+-- Table structure for table `member`
+--
+
+DROP TABLE IF EXISTS `member`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `member` (
+  `member_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `gender_type` varchar(255) DEFAULT NULL,
+  `height` double NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `weight` double NOT NULL,
+  PRIMARY KEY (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- 테이블 데이터 MadPT.record:~0 rows (대략적) 내보내기
-DELETE FROM `record`;
+--
+-- Dumping data for table `member`
+--
+
+LOCK TABLES `member` WRITE;
+/*!40000 ALTER TABLE `member` DISABLE KEYS */;
+/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `record`
+--
+
+DROP TABLE IF EXISTS `record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `record` (
+  `record_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `end_time` datetime(6) DEFAULT NULL,
+  `reps` tinyblob DEFAULT NULL,
+  `start_time` datetime(6) DEFAULT NULL,
+  `exercise_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`record_id`),
+  KEY `FKjs1jiif7ahtops6jfwdw17ip1` (`exercise_id`),
+  KEY `FKt0rib4n7orlcfx52cnsicmriw` (`member_id`),
+  CONSTRAINT `FKjs1jiif7ahtops6jfwdw17ip1` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`exercise_id`),
+  CONSTRAINT `FKt0rib4n7orlcfx52cnsicmriw` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `record`
+--
+
+LOCK TABLES `record` WRITE;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
--- 테이블 MadPT.user 구조 내보내기
-CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `birth` date DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `height` double DEFAULT NULL,
-  `weight` double DEFAULT NULL,
-  `gender` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 테이블 데이터 MadPT.user:~0 rows (대략적) 내보내기
-DELETE FROM `user`;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-04-27 11:58:14
