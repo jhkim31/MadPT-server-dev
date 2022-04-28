@@ -1,4 +1,4 @@
-package com.example.MadPtApi.controller;
+package com.example.MadPtApi.controller.testController;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

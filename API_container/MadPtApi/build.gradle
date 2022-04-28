@@ -29,9 +29,9 @@ dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	//implementation 'org.mariadb.jdbc:mariadb-java-client'
-	//implementation "org.mariadb.jdbc:mariadb-java-client:2.7.2"
-	//runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-	runtimeOnly 'com.h2database:h2'
+	implementation "org.mariadb.jdbc:mariadb-java-client:2.7.2"
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	//runtimeOnly 'com.h2database:h2'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.0.0'
 }
 

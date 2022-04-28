@@ -1,4 +1,4 @@
-package com.example.MadPtApi.controller;
+package com.example.MadPtApi.controller.testController;
 
 import org.springframework.web.bind.annotation.*;
 

@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Exercise {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exercise_id")
     private Long id;
 
@@ -18,6 +18,4 @@ public class Exercise {
     @Enumerated(EnumType.STRING)
     private ExerciseType exerciseType;
 
-    @Embedded
-    private ExerciseData exerciseData;
 }

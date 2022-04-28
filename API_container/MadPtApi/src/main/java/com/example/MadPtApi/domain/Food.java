@@ -15,12 +15,14 @@ import javax.persistence.*;
 public class Food {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food_id")
     private Long id;
 
+    @Column(length=1000)
     private String foodName;
 
+    @Column(length=100)
     private String makerName;
 
     @Embedded
@@ -47,7 +49,7 @@ public class Food {
 
         return Food.builder()
                 .foodName(foodName)
-                .foodData(FoodData.builder().default_kcal(kcal).build())
+                .foodData(FoodData.builder().defaultKcal(kcal).build())
                 .build();
     }
 }
