@@ -13,9 +13,10 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FoodData {
-    private double default_kcal;
-    private double default_carbohydrate;
-    private double default_protein;
-    private double default_fat;
+    private double defaultWeight;
+    private double defaultKcal;
+    private double defaultCarbohydrate;
+    private double defaultProtein;
+    private double defaultFat;
 
 }

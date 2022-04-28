@@ -1,6 +1,7 @@
 package com.example.MadPtApi.service;
 
 import com.example.MadPtApi.domain.*;
+import com.example.MadPtApi.dto.dietDto.DietListDto;
 import com.example.MadPtApi.dto.dietDto.DietSaveRequestDto;
 import com.example.MadPtApi.repository.DietRepository;
 import com.example.MadPtApi.repository.FoodRepository;
@@ -25,18 +26,19 @@ public class DietService {
     /**
      * 식단 List 저장
      */
-    public Long addDietList(Long memberId, LocalDateTime date, String dietType, List<DietSaveRequestDto> dietSaveRequestDtoList) {
+    @Transactional
+    public Long addDietList(Long memberId, LocalDateTime date, String dietType, List<DietListDto> dietListDtos) {
         List<DietFood> dietFoodList = new ArrayList<>();
         Member member = memberRepository.findOne(memberId);
 
-        for (DietSaveRequestDto dto : dietSaveRequestDtoList) {
+        for (DietListDto dto : dietListDtos) {
             Food food = null;
             if (dto.isCustom()) {
                 food = Food.builder().foodName(dto.getFoodName()).build(); // 커스텀 입력시 Food 생성
                 foodRepository.save(food);
             }
             else {
-                Long foodId = Long.parseLong(dto.getFoodId().trim());
+                Long foodId = dto.getFoodId();
                 food = foodRepository.findOne(foodId);
             }
             // DietFood 생성
@@ -46,9 +48,12 @@ public class DietService {
 
         Diet diet = Diet.createDiet(member, date, DietType.valueOf(dietType), dietFoodList);
         dietRepository.save(diet);
+        System.out.println("diet service done!");
         return diet.getId();
     }
+    // 식단 추가
 
+    // 식단 삭제
 
     /**
      * 날짜 별 식단 정보 조회

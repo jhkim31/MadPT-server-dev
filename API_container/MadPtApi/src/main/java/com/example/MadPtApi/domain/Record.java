@@ -1,27 +1,31 @@
 package com.example.MadPtApi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Record {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "record_id")
     private Long id;
 
-    private Date startTime;
+    private LocalDateTime startTime;
 
-    private Date endTime;
+    private LocalDateTime endTime;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -34,14 +38,10 @@ public class Record {
     @Embedded
     private ExerciseData exerciseData;
 
-    @Builder
-    public Record(Long id, Date startTime, Date endTime, Member member, Exercise exercise, ExerciseData exerciseData) {
-        this.id = id;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.member = member;
-        this.exercise = exercise;
-        this.exerciseData = exerciseData;
+
+    //==생성 메서드==//
+    public void createRecord() {
+
     }
 
     //==관계연산 메소드==//

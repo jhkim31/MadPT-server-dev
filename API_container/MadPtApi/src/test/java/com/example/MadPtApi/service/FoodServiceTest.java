@@ -26,17 +26,16 @@ class FoodServiceTest {
     FoodService foodService;
 
     @Test
-    @Commit
     public void 음식_리스트_조회() throws Exception {
         // given
         Food food1 = Food.builder()
                 .foodName("제육볶음")
                 .makerName("CJ")
                 .foodData(FoodData.builder()
-                        .default_kcal(45.2)
-                        .default_carbohydrate(10.1)
-                        .default_fat(11.1)
-                        .default_protein(12.1)
+                        .defaultKcal(45.2)
+                        .defaultCarbohydrate(10.1)
+                        .defaultFat(11.1)
+                        .defaultProtein(12.1)
                         .build())
                 .build();
 
@@ -44,10 +43,10 @@ class FoodServiceTest {
                 .foodName("제육")
                 .makerName("롯데")
                 .foodData(FoodData.builder()
-                        .default_kcal(45.2)
-                        .default_carbohydrate(10.1)
-                        .default_fat(11.1)
-                        .default_protein(12.1)
+                        .defaultKcal(45.2)
+                        .defaultCarbohydrate(10.1)
+                        .defaultFat(11.1)
+                        .defaultProtein(12.1)
                         .build())
                 .build();
 
@@ -59,5 +58,17 @@ class FoodServiceTest {
         List<Food> list = foodService.findFoods("제육");
         assertEquals(2, list.size());
     }
+    @Test
+    public void 음식_조회_디비() throws Exception {
+        // given
+        String foodName = "꿩불고기";
+        // when
+        List<Food> list = foodService.findFoods(foodName);
+        Food food = list.get(0);
+        // then
+        assertEquals(500, food.getFoodData().getDefaultWeight());
+        assertEquals(368.8, food.getFoodData().getDefaultKcal());
+        assertEquals("충주", food.getMakerName());
 
+    }
 }

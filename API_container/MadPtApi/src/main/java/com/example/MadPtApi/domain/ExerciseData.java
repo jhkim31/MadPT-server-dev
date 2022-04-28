@@ -1,22 +1,17 @@
 package com.example.MadPtApi.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ExerciseData {
-    private int score;
-    private int sets;
-    private int reps;
-
-    public ExerciseData() {
-    }
-
-    public ExerciseData(int score, int sets, int reps) {
-        this.score = score;
-        this.sets = sets;
-        this.reps = reps;
-    }
+    private int[] reps;
 }
