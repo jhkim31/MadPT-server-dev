@@ -66,10 +66,10 @@ class DietServiceTest {
                 .foodName("제육")
                 .makerName("CJ")
                 .foodData(FoodData.builder()
-                        .default_kcal(45.2)
-                        .default_carbohydrate(10.1)
-                        .default_fat(11.1)
-                        .default_protein(12.1)
+                        .defaultKcal(45.2)
+                        .defaultCarbohydrate(10.1)
+                        .defaultFat(11.1)
+                        .defaultProtein(12.1)
                         .build())
                 .build();
         Long foodId1 = foodService.saveFood(food1);
@@ -78,10 +78,10 @@ class DietServiceTest {
                 .foodName("돈까스")
                 .makerName("풀무원")
                 .foodData(FoodData.builder()
-                        .default_kcal(45.2)
-                        .default_carbohydrate(10.1)
-                        .default_fat(11.1)
-                        .default_protein(12.1)
+                        .defaultKcal(45.2)
+                        .defaultCarbohydrate(10.1)
+                        .defaultFat(11.1)
+                        .defaultProtein(12.1)
                         .build())
                 .build();
         Long foodId2 = foodService.saveFood(food2);
