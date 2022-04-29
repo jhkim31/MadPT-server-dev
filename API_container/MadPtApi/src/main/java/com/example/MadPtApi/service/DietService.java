@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,23 +33,29 @@ public class DietService {
         Member member = memberRepository.findOne(memberId);
 
         for (DietListDto dto : dietListDtos) {
-            Food food = null;
+            DietFood dietFood = null;
+
             if (dto.isCustom()) {
-                food = Food.builder().foodName(dto.getFoodName()).build(); // 커스텀 입력시 Food 생성
-                foodRepository.save(food);
+                // 커스텀 입력시 Food 생성 후 저장
+                Food customFood = Food.builder().foodName(dto.getFoodName()).build();
+                foodRepository.save(customFood);
+
+
+                dietFood = DietFood.createDietFood(customFood, dto.getWeight(), dto.getCount(), dto.getUnit());
+            }else {
+                // 음식 조회
+                Optional<Food> food = foodRepository.findById(dto.getFoodId());
+                if (food.isPresent()) {
+                    // DietFood 생성
+                    dietFood = DietFood.createDietFood(food.get(), dto.getWeight(), dto.getCount(), dto.getUnit());
+                }
             }
-            else {
-                Long foodId = dto.getFoodId();
-                food = foodRepository.findOne(foodId);
-            }
-            // DietFood 생성
-            DietFood dietFood = DietFood.createDietFood(food, dto.getWeight(), dto.getCount(), dto.getUnit());
+            // 식단 리스트에 저장
             dietFoodList.add(dietFood);
         }
 
         Diet diet = Diet.createDiet(member, date, DietType.valueOf(dietType), dietFoodList);
         dietRepository.save(diet);
-        System.out.println("diet service done!");
         return diet.getId();
     }
     // 식단 추가
