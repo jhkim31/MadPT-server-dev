@@ -18,13 +18,13 @@ jobs:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
-#      - name: DB Container Build Test
-#        uses: docker/build-push-action@v2
-#        with:
-#          context: .
-#          file: ./DB_container/Dockerfile
-#          tags: jhkimdocker/capstone_db_image:${{secrets.VERSION}}
-#          push: true
+      - name: DB Container Build Test
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./DB_container/Dockerfile
+          tags: jhkimdocker/capstone_db_image:${{secrets.VERSION}}
+          push: true
 
       - name: API Container Build Test
         uses: docker/build-push-action@v2
@@ -35,4 +35,3 @@ jobs:
           push: true
           secrets: |
             "MADPT_VERSION=${{secrets.VERSION}}"
-            "github_token=1234"

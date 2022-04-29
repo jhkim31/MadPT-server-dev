@@ -25,3 +25,5 @@ jobs:
           context: .
           file: ./API_container/Dockerfile
           push: false
+          secrets: |
+            "MADPT_VERSION=${{secrets.VERSION}}"     
