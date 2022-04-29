@@ -40,6 +40,8 @@ jobs:
           file: ./API_container/Dockerfile
           push: true
           tags: jhkimdocker/capstone_api_image:${{secrets.VERSION}}
+          secrets: |
+            "MADPT_VERSION=${{secrets.VERSION}}"
 
       - name: make zip
         run: zip -r ./${{secrets.AWS_S3_DEPLOY_ITEM}} ./Script
