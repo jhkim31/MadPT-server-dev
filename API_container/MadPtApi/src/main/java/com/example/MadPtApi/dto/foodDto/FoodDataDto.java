@@ -1,4 +1,4 @@
-package com.example.MadPtApi.dto;
+package com.example.MadPtApi.dto.foodDto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
-package com.example.MadPtApi.dto;
+package com.example.MadPtApi.dto.foodDto;
 
-import com.example.MadPtApi.domain.FoodData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +15,8 @@ public class FoodDto {
     private String foodName;
     @JsonProperty("maker_name")
     private String makerName;
+    @JsonProperty("food_id")
+    private Long foodId;
     @JsonProperty("food_data")
     FoodDataDto foodData;
 }
