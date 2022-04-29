@@ -18,9 +18,6 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install vim -y
 
-COPY ./API_container/MadPtApi/ /workspace/MadPtApi
-COPY ./API_container/Script /script
-
 WORKDIR /workspace/MadPtApi
 RUN chmod 755 gradlew
 RUN ./gradlew build
