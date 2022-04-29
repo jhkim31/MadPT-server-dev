@@ -15,9 +15,8 @@ public class FoodDto {
     private String foodName;
     @JsonProperty("maker_name")
     private String makerName;
-
-    // food id 추가 예정
-
+    @JsonProperty("food_id")
+    private Long foodId;
     @JsonProperty("food_data")
     FoodDataDto foodData;
 }
