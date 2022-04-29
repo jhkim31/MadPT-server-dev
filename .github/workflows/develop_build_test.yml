@@ -12,16 +12,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
+
       - name: DB Container Build Test
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./DB_container/Dockerfile
-          push: false
+          tags: jhkimdocker/capstone_db_image:${{secrets.VERSION}}
+          push: true
 
       - name: API Container Build Test
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./API_container/Dockerfile
-          push: false
+          tags: jhkimdocker/capstone_api_image:${{secrets.VERSION}}
+          push: true
+          secrets: |
+            "MADPT_VERSION=${{secrets.VERSION}}"
