@@ -24,7 +24,7 @@ public class FoodService {
 
     // 음식 이름으로 foodList 조회
     public List<Food> findFoods(String foodName) {
-        return foodRepository.findFoodsByFoodNameContaining(foodName);
+        return foodRepository.findFoodsByFoodNameIsContaining(foodName);
     }
 
 }

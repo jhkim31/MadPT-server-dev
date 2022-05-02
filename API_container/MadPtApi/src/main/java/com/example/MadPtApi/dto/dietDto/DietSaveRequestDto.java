@@ -14,6 +14,8 @@ public class DietSaveRequestDto {
     private Long date;
     @JsonProperty("diet_type")
     private String dietType;
+    // simple_total_kcal;
+
     @JsonProperty("diet_list")
     private List<DietListDto> dietList;
 }

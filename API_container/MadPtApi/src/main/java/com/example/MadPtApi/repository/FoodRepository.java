@@ -20,5 +20,5 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
      *     List<Diet> findDietsByMemberIdAndDietDate(@Param("memberId") Long memberId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
      */
 
-    List<Food> findFoodsByFoodNameContaining(String foodName);
+    List<Food> findFoodsByFoodNameIsContaining(String foodName);
 }
