@@ -23,16 +23,12 @@ class MemberServiceTest {
     @Test
     public void 회원_가입() throws Exception {
         // given
-        Member member = new Member();
-        member.setName("kim");
 
         // when
-        Long joinedId = memberService.join(member);
 
         // then
-        assertEquals(member, memberRepository.findOne(joinedId));
     }
-
+/*
     @Test
     public void 중복_회원_예외() throws Exception {
         // given
@@ -51,6 +47,6 @@ class MemberServiceTest {
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
 
-    }
+    }*/
 
 }
