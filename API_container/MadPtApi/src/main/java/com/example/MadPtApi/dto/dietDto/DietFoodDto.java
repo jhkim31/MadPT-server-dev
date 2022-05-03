@@ -1,5 +1,7 @@
 package com.example.MadPtApi.dto.dietDto;
 
+import com.example.MadPtApi.dto.foodDto.FoodDataDto;
+import com.example.MadPtApi.dto.foodDto.FoodSimpleDataDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DietListDto {
-    @JsonProperty("food_id")
-    private Long foodId;
+public class DietFoodDto {
     @JsonProperty("food_name")
     private String foodName;
     @JsonProperty("diet_kcal")
@@ -22,4 +22,6 @@ public class DietListDto {
     private String unit;
     @JsonProperty("is_custom")
     private boolean isCustom;
+    @JsonProperty("food_data")
+    private FoodSimpleDataDto foodSimpleDataDto;
 }
