@@ -1,9 +1,10 @@
 package com.example.MadPtApi.service;
 
-import com.example.MadPtApi.domain.*;
-import com.example.MadPtApi.dto.dietDto.DailyDietListDto;
+import com.example.MadPtApi.domain.Diet;
+import com.example.MadPtApi.domain.Food;
+import com.example.MadPtApi.domain.FoodData;
+import com.example.MadPtApi.domain.Member;
 import com.example.MadPtApi.dto.dietDto.DietListDto;
-import com.example.MadPtApi.dto.dietDto.DietSaveRequestDto;
 import com.example.MadPtApi.repository.DietRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +34,10 @@ class DietServiceTest {
     @Test
     public void 식단_저장() throws Exception {
         // given
-        Member member = new Member();
-        member.setName("Kim");
+        Member member = Member.builder()
+                .name("JungRak")
+                .build();
+
         em.persist(member);
 
         Food food = Food.builder()
@@ -61,8 +60,10 @@ class DietServiceTest {
     @Test
     public void 여러_식단_저장() throws Exception {
         // given
-        Member member = new Member();
-        member.setName("Kim");
+        Member member = Member.builder()
+                .name("JungRak")
+                .build();
+
         em.persist(member);
 
         Food food1 = getFood("제육", "CJ", false);
