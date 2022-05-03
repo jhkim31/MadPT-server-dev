@@ -30,8 +30,12 @@ public class Diet {
 
     private LocalDateTime dietDate;
 
+    // 간편 입력 칼로리
+    private double simpleTotalKcal;
+
     @Enumerated(EnumType.STRING)
     private DietType dietType;
+
 
     //==관계연산 메소드==//
     public void setMember(Member member) {
@@ -45,11 +49,12 @@ public class Diet {
     }
 
     //==생성 메서드==//
-    public static Diet createDiet(Member member, LocalDateTime date ,DietType dietType, List<DietFood> dietFoodList) {
+    public static Diet createDiet(Member member, LocalDateTime date ,DietType dietType, double simpleTotalKcal, List<DietFood> dietFoodList) {
         Diet diet = new Diet();
         diet.setMember(member);
         diet.setDietDate(date);
         diet.setDietType(dietType);
+        diet.setSimpleTotalKcal(simpleTotalKcal);
         for (DietFood dietFood : dietFoodList) {
             diet.addDietFood(dietFood);
         }
