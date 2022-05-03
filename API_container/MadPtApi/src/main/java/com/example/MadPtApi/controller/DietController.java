@@ -1,4 +1,6 @@
 package com.example.MadPtApi.controller;
+
+import com.example.MadPtApi.dto.PostResponseDto;
 import com.example.MadPtApi.dto.dietDto.DietSaveRequestDto;
 import com.example.MadPtApi.service.DietService;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.TimeZone;
 
 @RestController
@@ -17,15 +18,26 @@ public class DietController {
     private final DietService dietService;
 
     @PostMapping
-    public boolean saveDiet(@RequestHeader("memberId") Long id, @RequestBody DietSaveRequestDto dietSaveRequestDto) {
+    public PostResponseDto saveDiet(@RequestHeader("member_id") Long id, @RequestBody DietSaveRequestDto dietSaveRequestDto) {
+        // timestamp -> LocalDateTime 변환
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(dietSaveRequestDto.getDate()), TimeZone.getDefault().toZoneId());
-        System.out.println(localDateTime);
-        System.out.println(dietSaveRequestDto.getDietType());
-        System.out.println(dietSaveRequestDto.getDietList().get(0).getFoodName());
-        System.out.println("check");
-        Long diet_id = dietService.addDietList(id, localDateTime, dietSaveRequestDto.getDietType(), dietSaveRequestDto.getDietList());
+
+        Long diet_id = dietService.addDietList(id, localDateTime, dietSaveRequestDto.getSimpleTotalKcal(), dietSaveRequestDto.getDietType(), dietSaveRequestDto.getDietList());
         System.out.println("diet saved : " + diet_id);
-        return true;
+        PostResponseDto postResponseDto;
+        if (diet_id != 0L) {
+            postResponseDto = PostResponseDto.builder()
+                    .success(0)
+                    .result("success")
+                    .build();
+        } else {
+            postResponseDto = PostResponseDto.builder()
+                    .success(1)
+                    .result("fail")
+                    .build();
+        }
+        return postResponseDto;
     }
+
 
 }
