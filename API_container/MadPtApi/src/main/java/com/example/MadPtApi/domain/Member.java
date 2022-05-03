@@ -41,9 +41,9 @@ public class Member {
     */
 
     @OneToMany(mappedBy = "member", fetch = LAZY)
-    List<Diet> dietList = new ArrayList<>();
+    List<Diet> dietList;
 
     @OneToMany(mappedBy = "member", fetch = LAZY)
-    List<Record> recordList = new ArrayList<>();
+    List<Record> recordList;
 
 }
