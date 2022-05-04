@@ -19,7 +19,6 @@ public class DietFoodService {
      * 식단 불러오기
      */
     public List<DietFood> findDietFood(Long dietFoodId) {
-        List<DietFood> dietFoodList = dietFoodRepository.findDietFoodsByDietId(dietFoodId);
-        return dietFoodList;
+        return dietFoodRepository.findDietFoodsByDietId(dietFoodId);
     }
 }

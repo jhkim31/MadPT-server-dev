@@ -25,10 +25,9 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class DietService {
 
-    private final DietRepository dietRepository;
     private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
-
+    private final DietRepository dietRepository;
     private final DietFoodService dietFoodService;
 
     /**
@@ -82,27 +81,27 @@ public class DietService {
      */
     public List<DailyDietListDto> findDiet(Long memberId, Long date) {
         // 회원 엔티티 조회
-        Member member = memberRepository.findMemberByClientId(memberId); // member 조회 안되면 예외 처리 필요
+        Member member = memberRepository.findMemberByClientId(memberId);// member 조회 안되면 예외 처리 필요
 
         // timestamp 변환
         Timestamp timestamp = new Timestamp(date);
         LocalDate localDate = timestamp.toLocalDateTime().toLocalDate();
         LocalDateTime startOfDay = localDate.atStartOfDay();
-        LocalDateTime endOdDay = LocalTime.MAX.atDate(localDate);
+        LocalDateTime endOfDay = LocalTime.MAX.atDate(localDate);
 
         // Diet 리스트 조회
-        List<Diet> dietList = dietRepository.findDietsByMemberIdAndDietDate(member.getId(), startOfDay, endOdDay);
+        List<Diet> dietList = dietRepository.findDietsByMemberIdAndDietDate(member.getId(), startOfDay, endOfDay);
 
         // 결과 DTO
         List<DailyDietListDto> dailyDietListDtoArrayList = new ArrayList<>();
 
         for (Diet d : dietList) {
-            List<DietFoodDto> dietFoodDtoList = new ArrayList<>();
             String dietType = d.getDietType().toString();
             double simpleTotalKcal = d.getSimpleTotalKcal();
             // DietFood 조회
             List<DietFood> dietFoodList = dietFoodService.findDietFood(d.getId());
 
+            List<DietFoodDto> dietFoodDtoList = new ArrayList<>();
             // DietFoodDto 생성 후 리스트에 추가
             for (DietFood dietFood : dietFoodList) {
                 Food food = dietFood.getFood();
