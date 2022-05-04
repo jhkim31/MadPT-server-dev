@@ -10,7 +10,6 @@ RUN --mount=type=secret,id=MADPT_VERSION \
   export VERSION=$(cat /run/secrets/MADPT_VERSION) && \
   cat /run/secrets/MADPT_VERSION > /version && \
   sed -i "s/MADPT_VERSION/$VERSION/g" /workspace/MadPtApi/build.gradle && \
-  sed -i "s/MADPT_VERSION/$VERSION/g" /workspace/MadPtApi/src/main/resources/application.yml && \
   sed -i "s/MADPT_VERSION/$VERSION/g" /script/server_start.sh
   
 RUN ls
