@@ -4,15 +4,20 @@ import com.example.MadPtApi.domain.Diet;
 import com.example.MadPtApi.domain.Food;
 import com.example.MadPtApi.domain.FoodData;
 import com.example.MadPtApi.domain.Member;
+import com.example.MadPtApi.dto.dietDto.DailyDietListDto;
 import com.example.MadPtApi.dto.dietDto.DietListDto;
 import com.example.MadPtApi.repository.DietRepository;
+import com.example.MadPtApi.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +35,8 @@ class DietServiceTest {
     FoodService foodService;
     @Autowired
     DietFoodService dietFoodService;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     public void 식단_저장() throws Exception {
@@ -62,9 +69,12 @@ class DietServiceTest {
         // given
         Member member = Member.builder()
                 .name("JungRak")
+                .clientId(1L)
                 .build();
 
-        em.persist(member);
+        memberRepository.save(member);
+        //Member memberByClientId = memberRepository.findMemberByClientId(1L);
+
 
         Food food1 = getFood("제육", "CJ", false);
         Long foodId1 = foodService.saveFood(food1);
@@ -107,16 +117,17 @@ class DietServiceTest {
         LocalDateTime localDateTime = LocalDateTime.now();
         double simpleTotalKcal = 300.0;
         // when
-        Long dietId = dietService.addDietList(member.getId(), localDateTime, simpleTotalKcal, "Lunch", dtoList);
+        //Long result = dietService.addDietList(1L, localDateTime, simpleTotalKcal, "Lunch", dtoList);
+        //System.out.println(dietService.addDietList(1L, localDateTime, simpleTotalKcal, "Lunch", dtoList));
 
         // then
-        Diet diet = dietRepository.findById(dietId).get();
-        System.out.println(diet.getDietFoodList().size());
+        //Diet diet = dietRepository.findById(dietId).get();
+        //System.out.println(diet.getDietFoodList().size());
     }
 
     // Food Entity 생성 메소드
     private Food getFood(String foodName, String makerName, boolean isCustom) {
-        Food food = Food.builder()
+        return Food.builder()
                 .foodName(foodName)
                 .makerName(makerName)
                 .foodData(FoodData.builder()
@@ -127,7 +138,6 @@ class DietServiceTest {
                         .build())
                 .isCustom(isCustom)
                 .build();
-        return food;
     }
 
 
@@ -138,4 +148,27 @@ class DietServiceTest {
         // when
         // then
     }
+
+    @Test
+    public void 식단_리스트_조회() throws Exception {
+        // given
+        Long date = 1651582676000L;
+        Timestamp timestamp = new Timestamp(date);
+        LocalDate localDate = timestamp.toLocalDateTime().toLocalDate();
+        LocalDateTime startOfDay = localDate.atStartOfDay();
+        LocalDateTime endOfDay = LocalTime.MAX.atDate(localDate);
+
+        // when
+        List<Diet> dietList = dietRepository.findDietsByMemberIdAndDietDate(1L, startOfDay, endOfDay);
+        System.out.println(dietList.size());
+
+        // then
+        try {
+            List<DailyDietListDto> dietResult = dietService.findDiet(1L, date);
+            System.out.println(dietResult.size());
+        } catch (Exception e) {
+            System.out.println("에러");
+        }
+    }
+
 }
