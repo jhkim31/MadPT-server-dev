@@ -23,15 +23,13 @@ jobs:
         with:
           context: .
           file: ./DB_container/Dockerfile
-          tags: jhkimdocker/capstone_db_image:${{secrets.VERSION}}
-          push: true
+          push: false
 
       - name: API Container Build Test
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./API_container/Dockerfile
-          tags: jhkimdocker/capstone_api_image:${{secrets.VERSION}}
-          push: true
+          push: false
           secrets: |
             "MADPT_VERSION=${{secrets.VERSION}}"
