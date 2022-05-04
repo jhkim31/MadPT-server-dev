@@ -1,21 +1,20 @@
 package com.example.MadPtApi.service;
 
-import com.example.MadPtApi.domain.*;
+import com.example.MadPtApi.domain.Diet;
+import com.example.MadPtApi.domain.Food;
+import com.example.MadPtApi.domain.FoodData;
+import com.example.MadPtApi.domain.Member;
 import com.example.MadPtApi.dto.dietDto.DietListDto;
-import com.example.MadPtApi.dto.dietDto.DietSaveRequestDto;
 import com.example.MadPtApi.repository.DietRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 @Transactional
@@ -29,12 +28,16 @@ class DietServiceTest {
     DietRepository dietRepository;
     @Autowired
     FoodService foodService;
+    @Autowired
+    DietFoodService dietFoodService;
 
     @Test
     public void 식단_저장() throws Exception {
         // given
-        Member member = new Member();
-        member.setName("Kim");
+        Member member = Member.builder()
+                .name("JungRak")
+                .build();
+
         em.persist(member);
 
         Food food = Food.builder()
@@ -55,40 +58,23 @@ class DietServiceTest {
         assertEquals(dateTime, diet.getDietDate());*/
     }
     @Test
-    @Commit
     public void 여러_식단_저장() throws Exception {
         // given
-        Member member = new Member();
-        member.setName("Kim");
+        Member member = Member.builder()
+                .name("JungRak")
+                .build();
+
         em.persist(member);
 
-        Food food1 = Food.builder()
-                .foodName("제육")
-                .makerName("CJ")
-                .foodData(FoodData.builder()
-                        .defaultKcal(45.2)
-                        .defaultCarbohydrate(10.1)
-                        .defaultFat(11.1)
-                        .defaultProtein(12.1)
-                        .build())
-                .build();
+        Food food1 = getFood("제육", "CJ", false);
         Long foodId1 = foodService.saveFood(food1);
-
-        Food food2 = Food.builder()
-                .foodName("돈까스")
-                .makerName("풀무원")
-                .foodData(FoodData.builder()
-                        .defaultKcal(45.2)
-                        .defaultCarbohydrate(10.1)
-                        .defaultFat(11.1)
-                        .defaultProtein(12.1)
-                        .build())
-                .build();
+        Food food2 = getFood("돈까스", "풀무원", false);
         Long foodId2 = foodService.saveFood(food2);
 
         DietListDto dto1 = DietListDto.builder()
                 .foodId(foodId1)
                 .foodName("제육")
+                .dietKcal(0)
                 .weight(110.0)
                 .count(2)
                 .unit("접시")
@@ -103,28 +89,50 @@ class DietServiceTest {
                 .unit("조각")
                 .isCustom(false)
                 .build();
+
+        DietListDto dto3 = DietListDto.builder()
+                .foodId(0L)
+                .foodName("사과주스")
+                .weight(100.0)
+                .count(1)
+                .unit("컵")
+                .isCustom(true)
+                .build();
         List<DietListDto> dtoList = new ArrayList<>();
+
         dtoList.add(dto1);
         dtoList.add(dto2);
+        dtoList.add(dto3);
 
         LocalDateTime localDateTime = LocalDateTime.now();
-
+        double simpleTotalKcal = 300.0;
         // when
-        Long dietId = dietService.addDietList(member.getId(), localDateTime, "Lunch", dtoList);
+        Long dietId = dietService.addDietList(member.getId(), localDateTime, simpleTotalKcal, "Lunch", dtoList);
 
         // then
         Diet diet = dietRepository.findById(dietId).get();
         System.out.println(diet.getDietFoodList().size());
     }
+
+    // Food Entity 생성 메소드
+    private Food getFood(String foodName, String makerName, boolean isCustom) {
+        Food food = Food.builder()
+                .foodName(foodName)
+                .makerName(makerName)
+                .foodData(FoodData.builder()
+                        .defaultKcal(45.2)
+                        .defaultCarbohydrate(10.1)
+                        .defaultFat(11.1)
+                        .defaultProtein(12.1)
+                        .build())
+                .isCustom(isCustom)
+                .build();
+        return food;
+    }
+
+
     @Test
     public void 커스텀_입력_테스트() throws Exception {
-        // given
-
-        // when
-        // then
-    }
-    @Test
-    public void 식단_조회() throws Exception {
         // given
 
         // when

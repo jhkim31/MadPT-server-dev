@@ -2,7 +2,7 @@
 #db_MADPT_VERSION
 spring:
     datasource:
-        url: jdbc:mariadb://db_MADPT_VERSION:3306/MadPT
+        url: jdbc:mariadb://localhost:3306/MadPT
         username: root
         password: 1234
         driver-class-name: org.mariadb.jdbc.Driver

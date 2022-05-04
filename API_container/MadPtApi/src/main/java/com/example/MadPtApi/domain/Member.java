@@ -1,7 +1,6 @@
 package com.example.MadPtApi.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,12 +10,16 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+
+    private Long clientId;
 
     private String name;
 
@@ -38,8 +41,9 @@ public class Member {
     */
 
     @OneToMany(mappedBy = "member", fetch = LAZY)
-    List<Diet> dietList = new ArrayList<>();
+    List<Diet> dietList;
 
     @OneToMany(mappedBy = "member", fetch = LAZY)
-    List<Record> recordList = new ArrayList<>();
+    List<Record> recordList;
+
 }
