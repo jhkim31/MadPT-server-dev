@@ -28,11 +28,13 @@ public class DietController {
         if (diet_id != 0L) {
             postResponseDto = PostResponseDto.builder()
                     .success(0)
+                    .error(0)
                     .result("success")
                     .build();
         } else {
             postResponseDto = PostResponseDto.builder()
                     .success(1)
+                    .error(0)
                     .result("fail")
                     .build();
         }

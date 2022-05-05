@@ -37,7 +37,7 @@ public class DietService {
     public Long addDietList(Long memberId, LocalDateTime date, double simpleTotalKcal, String dietType, List<DietListDto> dietListDtos) {
         List<DietFood> dietFoodList = new ArrayList<>();
         // 회원 엔티티 조회
-        Member member = memberRepository.findMemberByClientId(memberId); // 예외 처리 해야됌
+        Member member = memberRepository.findByClientId(memberId); // 예외 처리 해야됌
 
         for (DietListDto dto : dietListDtos) {
             DietFood dietFood = null;
@@ -81,7 +81,7 @@ public class DietService {
      */
     public List<DailyDietListDto> findDiet(Long memberId, Long date) {
         // 회원 엔티티 조회
-        Member member = memberRepository.findMemberByClientId(memberId);// member 조회 안되면 예외 처리 필요
+        Member member = memberRepository.findByClientId(memberId);// member 조회 안되면 예외 처리 필요
 
         // timestamp 변환
         Timestamp timestamp = new Timestamp(date);

@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostResponseDto {
     private int success;
-    private String error;
+    private int error;
     private String result;
 }
