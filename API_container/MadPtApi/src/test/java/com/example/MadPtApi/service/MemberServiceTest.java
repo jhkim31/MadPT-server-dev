@@ -49,4 +49,23 @@ class MemberServiceTest {
 
     }*/
 
+    @Test
+    public void 회원_조회_테스트() throws Exception {
+        // given
+        Long clientId = 1L;
+        // when
+        Member member = memberRepository.findByClientId(clientId);
+        // then
+        System.out.println(member.getId());
+    }
+
+    @Test
+    public void 회원_로그인() throws Exception {
+        // given
+        Long clientId = 1L;
+        // when
+        Member member = memberService.findMember(1L);
+        // then
+        assertEquals(1L, member.getId());
+    }
 }
