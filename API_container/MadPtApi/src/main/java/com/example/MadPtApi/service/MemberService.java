@@ -5,7 +5,6 @@ import com.example.MadPtApi.domain.Member;
 import com.example.MadPtApi.dto.memberDto.MemberSignUpDto;
 import com.example.MadPtApi.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +48,7 @@ public class MemberService {
      * 회원 조회
      */
     public Member findMember(Long clientId) {
-        return memberRepository.findMemberByClientId(clientId);
+        return memberRepository.findByClientId(clientId);
     }
 
     public List<Member> findMembers() {
