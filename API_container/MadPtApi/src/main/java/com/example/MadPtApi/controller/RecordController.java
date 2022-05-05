@@ -26,11 +26,13 @@ public class RecordController {
         if (resultSize > 0) {
             postResponseDto = PostResponseDto.builder()
                     .success(0)
+                    .error(0)
                     .result("success")
                     .build();
         } else {
             postResponseDto = PostResponseDto.builder()
                     .success(1)
+                    .error(1)
                     .result("fail")
                     .build();
         }
