@@ -39,10 +39,10 @@ public class Member {
     private List<Diet> dietList;
     */
 
-    @OneToMany(mappedBy = "member", fetch = LAZY)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     List<Diet> dietList;
 
-    @OneToMany(mappedBy = "member", fetch = LAZY)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     List<Record> recordList;
 
 }

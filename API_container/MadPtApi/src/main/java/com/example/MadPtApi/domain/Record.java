@@ -35,14 +35,10 @@ public class Record {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    @Embedded
-    private ExerciseData exerciseData;
-
-
-    //==생성 메서드==//
-    public void createRecord() {
-
-    }
+    private int reps;
+    private int sets;
+    private double avgScore;
+    private int breakTime;
 
     //==관계연산 메소드==//
     public void setMember(Member member) {
