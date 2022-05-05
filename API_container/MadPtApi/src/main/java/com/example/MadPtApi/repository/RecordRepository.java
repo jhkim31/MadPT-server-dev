@@ -9,10 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Long> {
     @Query("select r from Record r where r.member.id = :memberId and r.startTime between :start and :end")
     List<Record> findRecordByMemberIdAndRecordDate(@Param("memberId") Long memberId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
 }
