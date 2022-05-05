@@ -1,7 +1,6 @@
 package com.example.MadPtApi.service;
 
 import com.example.MadPtApi.domain.Exercise;
-import com.example.MadPtApi.domain.ExerciseData;
 import com.example.MadPtApi.domain.Member;
 import com.example.MadPtApi.domain.Record;
 import com.example.MadPtApi.dto.RecordDto;
