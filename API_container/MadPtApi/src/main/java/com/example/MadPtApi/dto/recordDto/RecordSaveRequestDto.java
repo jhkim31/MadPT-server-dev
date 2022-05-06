@@ -1,4 +1,4 @@
-package com.example.MadPtApi.dto.dietDto;
+package com.example.MadPtApi.dto.recordDto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DietResponseDto {
-    @JsonProperty("daily_diet_list")
-    private List<DailyDietListDto> dailyDietList;
+public class RecordSaveRequestDto {
+    @JsonProperty("breaktime")
+    private int breakTime;
+    @JsonProperty("records")
+    private List<RecordDto> recordDtoList;
 }

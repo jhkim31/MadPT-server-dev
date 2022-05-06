@@ -27,14 +27,14 @@ public class TEST_StatisticController {
         rec1.addProperty("start_time", "1651676400000");
         rec1.addProperty("sets", 3);
         rec1.addProperty("reps", 5);
-        rec1.addProperty("score", 10);
+        rec1.addProperty("burned_kcal", 10);
 
         JsonObject rec2 = new JsonObject();
         rec2.addProperty("exercise_id", 321);
         rec2.addProperty("start_time", "1651762800000");
         rec2.addProperty("sets", 3);
         rec2.addProperty("reps", 1);
-        rec2.addProperty("score", 104);
+        rec2.addProperty("burned_kcal", 104);
 
         recordList.add(rec1);
         recordList.add(rec2);

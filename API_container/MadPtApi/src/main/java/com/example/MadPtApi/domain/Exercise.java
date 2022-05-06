@@ -13,7 +13,7 @@ public class Exercise {
     @Column(name = "exercise_id")
     private Long id;
 
-    private String exercise_name;
+    private String exerciseName;
 
     @Enumerated(EnumType.STRING)
     private ExerciseType exerciseType;

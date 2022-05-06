@@ -1,13 +1,10 @@
 package com.example.MadPtApi.controller;
 
 import com.example.MadPtApi.dto.PostResponseDto;
-import com.example.MadPtApi.dto.RecordDto;
-import com.example.MadPtApi.dto.RecordSaveRequestDto;
+import com.example.MadPtApi.dto.recordDto.RecordSaveRequestDto;
 import com.example.MadPtApi.service.RecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/record")
