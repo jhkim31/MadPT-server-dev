@@ -3,7 +3,6 @@ package com.example.MadPtApi.dto.dietDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,5 +16,5 @@ public class DietSaveRequestDto {
     @JsonProperty("simple_total_kcal")
     private double simpleTotalKcal;
     @JsonProperty("diet_list")
-    private List<DietListDto> dietList;
+    private List<DietDto> dietList;
 }

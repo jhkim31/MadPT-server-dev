@@ -12,11 +12,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DailyDietListDto {
+public class DailyDietDto {
     @JsonProperty("diet_type")
     private String dietType;
     @JsonProperty("simple_diet_kcal")
     private double simpleDietKcal;
     @JsonProperty("diet_list_by_type")
-    List<DietFoodDto> dietDtoList;
+    List<DietFoodDto> dietFoodDtoList;
 }

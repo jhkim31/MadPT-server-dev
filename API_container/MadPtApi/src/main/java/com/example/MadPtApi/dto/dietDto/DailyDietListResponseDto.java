@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DietResponseDto {
+public class DailyDietListResponseDto {
     @JsonProperty("daily_diet_list")
-    private List<DailyDietListDto> dailyDietList;
+    private List<DailyDietDto> dailyDietList;
 }
