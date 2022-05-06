@@ -3,8 +3,9 @@ package com.example.MadPtApi.service;
 import com.example.MadPtApi.domain.Exercise;
 import com.example.MadPtApi.domain.Member;
 import com.example.MadPtApi.domain.Record;
-import com.example.MadPtApi.dto.RecordDto;
-import com.example.MadPtApi.dto.RecordSaveRequestDto;
+import com.example.MadPtApi.dto.recordDto.RecordDto;
+import com.example.MadPtApi.dto.recordDto.DailyRecordResponseDto;
+import com.example.MadPtApi.dto.recordDto.RecordSaveRequestDto;
 import com.example.MadPtApi.repository.ExerciseRepository;
 import com.example.MadPtApi.repository.MemberRepository;
 import com.example.MadPtApi.repository.RecordRepository;
@@ -12,11 +13,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.TimeZone;
 
 @Service
@@ -36,24 +39,35 @@ public class RecordService {
     public int saveRecord(Long memberId, RecordSaveRequestDto recordSaveRequestDto) {
         // 회원 엔티티
         Member member = memberRepository.findByClientId(memberId);
-        int breakTime = recordSaveRequestDto.getBreakTime();
 
+        int breakTime = recordSaveRequestDto.getBreakTime();
         List<RecordDto> recordDtoList = recordSaveRequestDto.getRecordDtoList();
         List<Record> recordList = new ArrayList<>();
+
         // Record 엔티티 생성
         for (RecordDto dto : recordDtoList) {
+            // Exercise Entity 조회
             Exercise exercise = exerciseRepository.findById(dto.getExerciseId()).orElseThrow(() -> new IllegalArgumentException("no such exercise data"));
+
+            // 소모 칼로리 계산
+            Long totalExerciseTime = (dto.getEndTime() - dto.getStartTime()) / 1000;
+            double burnedKcal = getBurnedKcal(totalExerciseTime, dto.getRealTime(), member.getWeight());
+
+            // timestamp -> LocalDateTime
             LocalDateTime startTime = timestampConverter(dto.getStartTime());
             LocalDateTime endTime = timestampConverter(dto.getEndTime());
 
+            // Record Entity 생성
             Record record = Record.builder()
                     .exercise(exercise)
                     .startTime(startTime)
                     .endTime(endTime)
+                    .realTime(dto.getRealTime())
                     .reps(dto.getReps())
                     .sets(dto.getSets())
                     .avgScore(dto.getAvgScore())
                     .breakTime(breakTime)
+                    .burnedKcal(burnedKcal)
                     .build();
             record.setMember(member);
 
@@ -68,15 +82,54 @@ public class RecordService {
 
 
     /**
-     * 날짜별 운동 정보 조회
+     * 일별 운동 정보 조회
      */
-    public List<Record> findRecord(Long memberId, LocalDateTime start, LocalDateTime end) {
-        // 엔티티 조회
-        Member member = memberService.findMember(memberId);
+    public List<DailyRecordResponseDto> findRecord(Long memberId, Long date) {
+        // 회원 엔티티 조회
+        Member member = memberRepository.findByClientId(memberId);// member 조회 안되면 예외 처리 필요
 
-        return recordRepository.findRecordByMemberIdAndRecordDate(memberId, start, end);
+        // timestamp 변환
+        Timestamp timestamp = new Timestamp(date);
+        LocalDate localDate = timestamp.toLocalDateTime().toLocalDate();
+        LocalDateTime startOfDay = localDate.atStartOfDay();
+        LocalDateTime endOfDay = LocalTime.MAX.atDate(localDate);
+
+        List<Record> recordList = recordRepository.findRecordByMemberIdAndRecordDate(member.getId(), startOfDay, endOfDay);
+        List<DailyRecordResponseDto> recordResponseDtoList = new ArrayList<>();
+        for (Record record : recordList) {
+            Timestamp startTime = Timestamp.valueOf(record.getStartTime());
+            DailyRecordResponseDto recordResponseDto = DailyRecordResponseDto.builder()
+                    .exerciseName(record.getExercise().getExerciseName())
+                    .startTime(startTime.getTime())
+                    .reps(record.getReps())
+                    .sets(record.getSets())
+                    .burnedKcal(record.getBurnedKcal())
+                    .build();
+            recordResponseDtoList.add(recordResponseDto);
+        }
+
+        return recordResponseDtoList;
     }
 
+    /**
+     * 칼로리 연산
+     */
+    public double getBurnedKcal(Long totalTime, int realTime, double weight) {
+        // 운동 MET = 3.4, 평상시 MET = 1
+        double MET = 5;
+        // 운동시 산소 소모량
+        double oxygenConsumption = (3.5 * MET * weight * (int) (realTime / 60)) / 1000;
+
+        // 평상시 산소 소모량
+        oxygenConsumption += 3.5 * 1 * weight * (int) ((totalTime - realTime) / 60) / 1000;
+
+        // 총 소모 칼로리
+        double burnedKcal = oxygenConsumption * 5;
+
+        return Math.round(burnedKcal * 100) / 100.0;
+    }
+
+    // timestamp -> LocalDateTime 변환 메소드
     private LocalDateTime timestampConverter(Long timestamp) {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), TimeZone.getDefault().toZoneId());
     }
