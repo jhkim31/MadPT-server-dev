@@ -1,9 +1,9 @@
 package com.example.MadPtApi.service;
 
 import com.example.MadPtApi.domain.*;
-import com.example.MadPtApi.dto.dietDto.DailyDietListDto;
+import com.example.MadPtApi.dto.dietDto.DailyDietDto;
 import com.example.MadPtApi.dto.dietDto.DietFoodDto;
-import com.example.MadPtApi.dto.dietDto.DietListDto;
+import com.example.MadPtApi.dto.dietDto.DietDto;
 import com.example.MadPtApi.dto.foodDto.FoodSimpleDataDto;
 import com.example.MadPtApi.repository.DietRepository;
 import com.example.MadPtApi.repository.FoodRepository;
@@ -34,12 +34,12 @@ public class DietService {
      * 식단 List 저장
      */
     @Transactional
-    public Long addDietList(Long memberId, LocalDateTime date, double simpleTotalKcal, String dietType, List<DietListDto> dietListDtos) {
+    public Long addDietList(Long memberId, LocalDateTime date, double simpleTotalKcal, String dietType, List<DietDto> dietDtoList) {
         List<DietFood> dietFoodList = new ArrayList<>();
         // 회원 엔티티 조회
         Member member = memberRepository.findByClientId(memberId); // 예외 처리 해야됌
 
-        for (DietListDto dto : dietListDtos) {
+        for (DietDto dto : dietDtoList) {
             DietFood dietFood = null;
 
             if (dto.isCustom()) {
@@ -79,7 +79,7 @@ public class DietService {
     /**
      * 일별 식단 정보 조회
      */
-    public List<DailyDietListDto> findDiet(Long memberId, Long date) {
+    public List<DailyDietDto> findDiet(Long memberId, Long date) {
         // 회원 엔티티 조회
         Member member = memberRepository.findByClientId(memberId);// member 조회 안되면 예외 처리 필요
 
@@ -93,7 +93,7 @@ public class DietService {
         List<Diet> dietList = dietRepository.findDietsByMemberIdAndDietDate(member.getId(), startOfDay, endOfDay);
 
         // 결과 DTO
-        List<DailyDietListDto> dailyDietListDtoArrayList = new ArrayList<>();
+        List<DailyDietDto> dailyDietDtoList = new ArrayList<>();
 
         for (Diet d : dietList) {
             String dietType = d.getDietType().toString();
@@ -101,7 +101,9 @@ public class DietService {
             // DietFood 조회
             List<DietFood> dietFoodList = dietFoodService.findDietFood(d.getId());
 
+            // DietFoodDto 리스트 생성
             List<DietFoodDto> dietFoodDtoList = new ArrayList<>();
+
             // DietFoodDto 생성 후 리스트에 추가
             for (DietFood dietFood : dietFoodList) {
                 Food food = dietFood.getFood();
@@ -123,15 +125,15 @@ public class DietService {
             }
 
             // DailyDietListDto 생성
-            DailyDietListDto dailyDietListDto = DailyDietListDto.builder()
+            DailyDietDto dailyDietDto = DailyDietDto.builder()
                     .dietType(dietType)
                     .simpleDietKcal(simpleTotalKcal)
-                    .dietDtoList(dietFoodDtoList)
+                    .dietFoodDtoList(dietFoodDtoList)
                     .build();
-            dailyDietListDtoArrayList.add(dailyDietListDto);
+            dailyDietDtoList.add(dailyDietDto);
         }
 
-        return dailyDietListDtoArrayList;
+        return dailyDietDtoList;
     }
 
     /**
