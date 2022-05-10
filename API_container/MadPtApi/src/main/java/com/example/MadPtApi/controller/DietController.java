@@ -34,7 +34,7 @@ public class DietController {
         } else {
             postResponseDto = PostResponseDto.builder()
                     .success(1)
-                    .error(0)
+                    .error(1)
                     .result("fail")
                     .build();
         }
