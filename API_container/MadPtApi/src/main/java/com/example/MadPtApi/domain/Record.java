@@ -27,6 +27,8 @@ public class Record {
 
     private LocalDateTime endTime;
 
+    private int realTime;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -39,6 +41,8 @@ public class Record {
     private int sets;
     private double avgScore;
     private int breakTime;
+
+    private double burnedKcal;
 
     //==관계연산 메소드==//
     public void setMember(Member member) {

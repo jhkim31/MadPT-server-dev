@@ -4,8 +4,8 @@ import com.example.MadPtApi.domain.Diet;
 import com.example.MadPtApi.domain.Food;
 import com.example.MadPtApi.domain.FoodData;
 import com.example.MadPtApi.domain.Member;
-import com.example.MadPtApi.dto.dietDto.DailyDietListDto;
-import com.example.MadPtApi.dto.dietDto.DietListDto;
+import com.example.MadPtApi.dto.dietDto.DailyDietDto;
+import com.example.MadPtApi.dto.dietDto.DietDto;
 import com.example.MadPtApi.repository.DietRepository;
 import com.example.MadPtApi.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
@@ -81,7 +81,7 @@ class DietServiceTest {
         Food food2 = getFood("돈까스", "풀무원", false);
         Long foodId2 = foodService.saveFood(food2);
 
-        DietListDto dto1 = DietListDto.builder()
+        DietDto dto1 = DietDto.builder()
                 .foodId(foodId1)
                 .foodName("제육")
                 .dietKcal(0)
@@ -91,7 +91,7 @@ class DietServiceTest {
                 .isCustom(false)
                 .build();
 
-        DietListDto dto2 = DietListDto.builder()
+        DietDto dto2 = DietDto.builder()
                 .foodId(foodId2)
                 .foodName("돈까스")
                 .weight(210.0)
@@ -100,7 +100,7 @@ class DietServiceTest {
                 .isCustom(false)
                 .build();
 
-        DietListDto dto3 = DietListDto.builder()
+        DietDto dto3 = DietDto.builder()
                 .foodId(0L)
                 .foodName("사과주스")
                 .weight(100.0)
@@ -108,7 +108,7 @@ class DietServiceTest {
                 .unit("컵")
                 .isCustom(true)
                 .build();
-        List<DietListDto> dtoList = new ArrayList<>();
+        List<DietDto> dtoList = new ArrayList<>();
 
         dtoList.add(dto1);
         dtoList.add(dto2);
@@ -164,7 +164,7 @@ class DietServiceTest {
 
         // then
         try {
-            List<DailyDietListDto> dietResult = dietService.findDiet(1L, date);
+            List<DailyDietDto> dietResult = dietService.findDiet(1L, date);
             System.out.println(dietResult.size());
         } catch (Exception e) {
             System.out.println("에러");

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DietListDto {
+public class DietDto {
     @JsonProperty("food_id")
     private Long foodId;
     @JsonProperty("food_name")

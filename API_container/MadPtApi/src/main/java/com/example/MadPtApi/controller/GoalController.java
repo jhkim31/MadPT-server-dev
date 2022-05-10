@@ -1,26 +1,27 @@
 package com.example.MadPtApi.controller;
 
 import com.example.MadPtApi.dto.PostResponseDto;
-import com.example.MadPtApi.dto.recordDto.RecordSaveRequestDto;
-import com.example.MadPtApi.service.RecordService;
+import com.example.MadPtApi.dto.goalDto.GoalSaveRequestDto;
+import com.example.MadPtApi.service.GoalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/record")
 @RequiredArgsConstructor
-public class RecordController {
+@RequestMapping("/goal")
+public class GoalController {
 
-    private final RecordService recordService;
+    private final GoalService goalService;
 
-    @PostMapping("/result")
-    public PostResponseDto saveRecord(@RequestHeader("member_id") Long id, @RequestBody RecordSaveRequestDto recordRequestDto) {
-
-        // record Service
-        int resultSize = recordService.saveRecord(id, recordRequestDto);
+    /**
+     * 목표 저장
+     */
+    @PostMapping
+    public PostResponseDto saveGaol(@RequestHeader("member_id") Long id, @RequestBody GoalSaveRequestDto goalSaveRequestDto) {
+        Long goalId = goalService.saveGoal(id, goalSaveRequestDto);
 
         PostResponseDto postResponseDto;
-        if (resultSize > 0) {
+        if (goalId != 0L) {
             postResponseDto = PostResponseDto.builder()
                     .success(0)
                     .error(0)
@@ -33,6 +34,8 @@ public class RecordController {
                     .result("fail")
                     .build();
         }
+
         return postResponseDto;
     }
+
 }
