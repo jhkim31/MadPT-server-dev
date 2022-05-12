@@ -58,7 +58,6 @@ public class Diet {
         for (DietFood dietFood : dietFoodList) {
             diet.addDietFood(dietFood);
         }
-
         return diet;
     }
 
