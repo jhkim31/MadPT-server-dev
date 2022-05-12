@@ -47,4 +47,8 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     List<Routine> routineList;
+
+    public void updateWeight(double weight) {
+        this.weight = weight;
+    }
 }
