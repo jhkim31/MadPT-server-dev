@@ -45,4 +45,6 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     List<Record> recordList;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    List<Routine> routineList;
 }
