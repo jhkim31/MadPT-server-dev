@@ -2,6 +2,7 @@ package com.example.MadPtApi.controller;
 
 import com.example.MadPtApi.dto.PostResponseDto;
 import com.example.MadPtApi.dto.memberDto.MemberSignUpDto;
+import com.example.MadPtApi.dto.memberDto.MemberWeightUpdateDto;
 import com.example.MadPtApi.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,13 @@ public class MemberController {
             loginCheck = true;
         }
         return loginCheck;
+    }
+
+    /**
+     * 회원 몸무게 수정
+     */
+    @PostMapping("/update-weight")
+    public void updateMemberWeight(@RequestHeader("member_id") Long clientId, @RequestBody MemberWeightUpdateDto memberWeightUpdateDto) {
+        memberService.updateMemberWeight(clientId, memberWeightUpdateDto.getWeight());
     }
 }
