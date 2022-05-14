@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,10 +35,12 @@ public class DietService {
      * 식단 List 저장
      */
     @Transactional
-    public Long addDietList(Long memberId, LocalDateTime date, double simpleTotalKcal, String dietType, List<DietDto> dietDtoList) {
+    public Long addDietList(Long clientId, LocalDateTime date, double simpleTotalKcal, String dietType, List<DietDto> dietDtoList) {
         List<DietFood> dietFoodList = new ArrayList<>();
         // 회원 엔티티 조회
-        Member member = memberRepository.findByClientId(memberId); // 예외 처리 해야됌
+        Member member = memberRepository.findByClientId(clientId); // 예외 처리 해야됌
+
+        // 존재하는지 확인 해보고 update 처리 해야됌
 
         for (DietDto dto : dietDtoList) {
             DietFood dietFood = null;
@@ -77,11 +80,30 @@ public class DietService {
     // 식단 삭제
 
     /**
+     * 일별 섭취 칼로리 조회
+     */
+    public HashMap<String, Double> getDietKcal(Long clientId, Long date) {
+        List<DailyDietDto> dailyDietDtoList = findDiet(clientId, date);
+
+        HashMap<String, Double> hashMap = new HashMap<>();
+
+        for (DailyDietDto dto : dailyDietDtoList) {
+            double totalKcal = dto.getSimpleDietKcal();
+            for (DietFoodDto dietFoodDto : dto.getDietFoodDtoList()) {
+                totalKcal += dietFoodDto.getDietKcal();
+            }
+            hashMap.put(dto.getDietType().toString(), totalKcal);
+        }
+
+        return hashMap;
+    }
+
+    /**
      * 일별 식단 정보 조회
      */
-    public List<DailyDietDto> findDiet(Long memberId, Long date) {
+    public List<DailyDietDto> findDiet(Long clientId, Long date) {
         // 회원 엔티티 조회
-        Member member = memberRepository.findByClientId(memberId);// member 조회 안되면 예외 처리 필요
+        Member member = memberRepository.findByClientId(clientId);// member 조회 안되면 예외 처리 필요
 
         // timestamp 변환
         Timestamp timestamp = new Timestamp(date);

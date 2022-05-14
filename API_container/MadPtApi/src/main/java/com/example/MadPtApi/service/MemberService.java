@@ -43,6 +43,13 @@ public class MemberService {
         }
     }
 */
+    /**
+     * 회원 몸무게 조회
+     */
+    public double getMemberWeight(Long clientId) {
+        Member member = memberRepository.findByClientId(clientId);
+        return member.getWeight();
+    }
 
     /**
      * 회원 몸무게 수정 -> JPA Dirty Checking 활용
