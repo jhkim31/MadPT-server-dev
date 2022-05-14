@@ -80,13 +80,24 @@ public class RecordService {
         return savedRecordList.size();
     }
 
+    /**
+     * 일별 소모 칼로리 조회
+     */
+    public double getDailyBurnedKcal(Long clientId, Long date) {
+        List<DailyRecordResponseDto> recordList = findRecord(clientId, date);
+        double totalBurnedKcal = 0;
+        for (DailyRecordResponseDto dto : recordList) {
+            totalBurnedKcal += dto.getBurnedKcal();
+        }
+        return Math.round(totalBurnedKcal * 100) / 100.0;
+    }
 
     /**
      * 일별 운동 정보 조회
      */
-    public List<DailyRecordResponseDto> findRecord(Long memberId, Long date) {
+    public List<DailyRecordResponseDto> findRecord(Long clientId, Long date) {
         // 회원 엔티티 조회
-        Member member = memberRepository.findByClientId(memberId);// member 조회 안되면 예외 처리 필요
+        Member member = memberRepository.findByClientId(clientId);// member 조회 안되면 예외 처리 필요
 
         // timestamp 변환
         Timestamp timestamp = new Timestamp(date);
