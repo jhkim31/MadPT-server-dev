@@ -61,4 +61,18 @@ public class Diet {
         return diet;
     }
 
+    //== 비지니스 로직 ==//
+
+    /**
+     * 식단 총 칼로리 계산
+     */
+    public double getTotalDietKcal() {
+        double total = 0;
+        total += simpleTotalKcal;
+        for (DietFood dietFood : dietFoodList) {
+            total += dietFood.getDietKcal();
+        }
+        return total;
+    }
+
 }

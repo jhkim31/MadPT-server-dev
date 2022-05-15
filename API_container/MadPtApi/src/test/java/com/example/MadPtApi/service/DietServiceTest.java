@@ -171,4 +171,16 @@ class DietServiceTest {
         }
     }
 
+    /**
+     * 월별 식단 조회
+     */
+    @Test
+    public void 월별_식단_조회() throws Exception {
+        // given
+        List<Diet> dietsByMonth = dietRepository.findDietsByMonth(1L,8);
+        System.out.println(dietsByMonth.size());
+        // when
+        // then
+    }
+
 }

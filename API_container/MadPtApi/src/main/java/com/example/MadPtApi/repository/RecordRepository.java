@@ -17,4 +17,6 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     @Query("select r from Record r where r.member.id = :memberId and r.startTime between :start and :end")
     List<Record> findRecordByMemberIdAndRecordDate(@Param("memberId") Long memberId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 
+    @Query("select r from Record r where r.member.id = :memberId and FUNCTION('MONTH', r.startTime) = :month ")
+    List<Record> findRecordsByMonth(@Param("memberId") Long memberId, @Param("month") int month);
 }

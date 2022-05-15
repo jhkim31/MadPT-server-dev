@@ -4,6 +4,8 @@ import com.example.MadPtApi.dto.dietDto.DailyDietDto;
 import com.example.MadPtApi.dto.dietDto.DailyDietListResponseDto;
 import com.example.MadPtApi.dto.recordDto.DailyRecordListResponseDto;
 import com.example.MadPtApi.dto.recordDto.DailyRecordResponseDto;
+import com.example.MadPtApi.dto.statisticDto.CalendarDailyDto;
+import com.example.MadPtApi.dto.statisticDto.CalendarDto;
 import com.example.MadPtApi.dto.statisticDto.DailySummaryDto;
 import com.example.MadPtApi.service.DietService;
 import com.example.MadPtApi.service.RecordService;
@@ -53,5 +55,10 @@ public class StatisticController {
     /**
      * 월별 데이터 받아오기
      */
+    @GetMapping("/calendar")
+    public CalendarDto getCalendarData(@RequestHeader("member_id") Long id, @RequestParam Long date) {
+        List<CalendarDailyDto> monthlyData = statisticService.getMonthlyData(id, date);
+        return CalendarDto.builder().dailyDtoList(monthlyData).build();
+    }
 
 }
