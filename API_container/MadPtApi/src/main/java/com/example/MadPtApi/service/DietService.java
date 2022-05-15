@@ -157,6 +157,25 @@ public class DietService {
 
         return dailyDietDtoList;
     }
+    /**
+     * 월별 데이터 조회
+     */
+    public HashMap<Integer, Double> getMonthlyDietKcal(int days, Long memberId, int month) {
+        HashMap<Integer, Double> dietMap = new HashMap<>();
+
+        for (int i = 1; i <= days; i++) {
+            dietMap.put(i, (double) 0);
+        }
+
+        List<Diet> dietList = dietRepository.findDietsByMonth(memberId, month);
+        for (Diet diet : dietList) {
+            double totalDietKcal = diet.getTotalDietKcal();
+            int dayOfMonth = diet.getDietDate().getDayOfMonth();
+            dietMap.put(dayOfMonth, dietMap.getOrDefault(dayOfMonth, 0.0) + totalDietKcal);
+        }
+
+        return dietMap;
+    }
 
     /**
      * 섭취 탄단지 비율 계산 로직
