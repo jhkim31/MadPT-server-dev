@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -120,6 +121,26 @@ public class RecordService {
         }
 
         return recordResponseDtoList;
+    }
+    /**
+     * 월별 소모 칼로리 조회
+     */
+    public HashMap<Integer, Double> monthlyBurnedKcal(Member member, int month, int days) {
+        HashMap<Integer, Double> recordMap = new HashMap<>();
+
+        for (int i = 1; i <= days; i++) {
+            recordMap.put(i, (double) 0);
+        }
+
+        List<Record> recordList = recordRepository.findRecordsByMonth(member.getId(), month);
+
+        for (Record record : recordList) {
+            double burnedKcal = record.getBurnedKcal();
+            int dayOfMonth = record.getStartTime().getDayOfMonth();
+            recordMap.put(dayOfMonth, recordMap.getOrDefault(dayOfMonth, 0.0) + burnedKcal);
+        }
+
+        return recordMap;
     }
 
     /**
