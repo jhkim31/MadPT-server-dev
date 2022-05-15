@@ -7,9 +7,11 @@ import com.example.MadPtApi.repository.GoalRepository;
 import com.example.MadPtApi.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class GoalService {
 
     private final GoalRepository goalRepository;
@@ -18,6 +20,7 @@ public class GoalService {
     /**
      * 목표 저장
      */
+    @Transactional
     public Long saveGoal(Long clientId, GoalSaveRequestDto dto) {
         Member member = memberRepository.findByClientId(clientId);
 
@@ -48,5 +51,8 @@ public class GoalService {
     /**
      * 목표 조회
      */
+    public Goal getGoal(Long clientId) {
+        return goalRepository.findByMember_ClientId(clientId);
+    }
 
 }
