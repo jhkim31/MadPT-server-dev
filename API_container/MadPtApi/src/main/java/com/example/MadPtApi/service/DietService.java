@@ -160,14 +160,14 @@ public class DietService {
     /**
      * 월별 데이터 조회
      */
-    public HashMap<Integer, Double> getMonthlyDietKcal(int days, Long memberId, int month) {
+    public HashMap<Integer, Double> getMonthlyDietKcal(Member member, int days, int month) {
         HashMap<Integer, Double> dietMap = new HashMap<>();
 
         for (int i = 1; i <= days; i++) {
             dietMap.put(i, (double) 0);
         }
 
-        List<Diet> dietList = dietRepository.findDietsByMonth(memberId, month);
+        List<Diet> dietList = dietRepository.findDietsByMonth(member.getId(), month);
         for (Diet diet : dietList) {
             double totalDietKcal = diet.getTotalDietKcal();
             int dayOfMonth = diet.getDietDate().getDayOfMonth();
