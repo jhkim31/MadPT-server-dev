@@ -8,14 +8,14 @@ import com.example.MadPtApi.dto.statisticDto.CalendarDailyDto;
 import com.example.MadPtApi.dto.statisticDto.DailySummaryDto;
 import com.example.MadPtApi.repository.DietRepository;
 import com.example.MadPtApi.repository.RecordRepository;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,18 +76,23 @@ public class StatisticService {
         LocalDate localDate = timestamp.toLocalDateTime().toLocalDate();
         int month = localDate.getMonthValue();
         int days = localDate.lengthOfMonth();
+        int year = localDate.getYear();
 
-
-        HashMap<Integer, Double> monthlyDietKcal = dietService.getMonthlyDietKcal(days, member.getId(), month);
+        HashMap<Integer, Double> monthlyDietKcal = dietService.getMonthlyDietKcal(member, days, month);
         HashMap<Integer, Double> monthlyBurnedKcal = recordService.monthlyBurnedKcal(member, month, days);
 
         List<CalendarDailyDto> dailyDtoList = new ArrayList<>();
         for (int i = 1; i <= days; i++) {
+            if (monthlyDietKcal.get(i) == 0 && monthlyBurnedKcal.get(i) == 0) {
+                continue;
+            }
+
+            LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(year, month, i), LocalTime.now());
             CalendarDailyDto dto = CalendarDailyDto.builder()
-                    .date(i)
-                    .dailyDietKcal(monthlyDietKcal.get(i))
-                    .dailyBurnedKcal(monthlyBurnedKcal.get(i))
-                    .build();
+                        .date(Timestamp.valueOf(localDateTime).getTime())
+                        .dailyDietKcal(monthlyDietKcal.get(i))
+                        .dailyBurnedKcal(monthlyBurnedKcal.get(i))
+                        .build();
             dailyDtoList.add(dto);
         }
 

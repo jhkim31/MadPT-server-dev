@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalendarDailyDto {
-    private int date;
+    private Long date;
     @JsonProperty("daily_diet_kcal")
     private double dailyDietKcal;
     @JsonProperty("daily_burned_kcal")
