@@ -1,6 +1,8 @@
 package com.example.MadPtApi.controller;
 
+import com.example.MadPtApi.domain.Member;
 import com.example.MadPtApi.dto.PostResponseDto;
+import com.example.MadPtApi.dto.memberDto.MemberInfoDto;
 import com.example.MadPtApi.dto.memberDto.MemberSignUpDto;
 import com.example.MadPtApi.dto.memberDto.MemberWeightUpdateDto;
 import com.example.MadPtApi.service.MemberService;
@@ -56,5 +58,16 @@ public class MemberController {
     @PostMapping("/update-weight")
     public void updateMemberWeight(@RequestHeader("member_id") Long clientId, @RequestBody MemberWeightUpdateDto memberWeightUpdateDto) {
         memberService.updateMemberWeight(clientId, memberWeightUpdateDto.getWeight());
+    }
+
+    @GetMapping("/info")
+    public MemberInfoDto getMemberInfo(@RequestHeader("member_id") Long clientId) {
+        Member member = memberService.findMember(clientId);
+        MemberInfoDto memberInfoDto = MemberInfoDto.builder()
+                .name(member.getName())
+                .height(member.getHeight())
+                .weight(member.getWeight())
+                .build();
+        return memberInfoDto;
     }
 }
