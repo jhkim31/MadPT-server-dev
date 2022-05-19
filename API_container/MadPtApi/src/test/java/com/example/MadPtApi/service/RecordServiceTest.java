@@ -36,12 +36,13 @@ class RecordServiceTest {
         Long endTime = 1651827038000L; // 50분
 
         Long totalTime = (endTime - startTime); // 밀리초
-        long realTime = 600000L; // 밀리초
+        long realTime = 30000L; // 10분 / 밀리초
         double weight = 70.0;
 
         // when
         double burnedKcal = recordService.calculateBurnedKcal(totalTime, realTime, weight);
         // then
+        System.out.println(totalTime);
         System.out.println(burnedKcal);
     }
     
