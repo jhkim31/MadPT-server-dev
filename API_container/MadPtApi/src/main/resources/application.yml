@@ -1,8 +1,9 @@
 # 3.34.84.136
 #db_MADPT_VERSION
+# config로 숨기는 방법 찾아오기
 spring:
     datasource:
-        url: jdbc:mariadb://localhost:3306/MadPT
+        url: jdbc:mariadb://3.34.84.136:3306/MadPT
         username: root
         password: 1234
         driver-class-name: org.mariadb.jdbc.Driver

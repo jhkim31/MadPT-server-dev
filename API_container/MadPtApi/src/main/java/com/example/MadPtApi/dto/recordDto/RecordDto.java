@@ -20,7 +20,7 @@ public class RecordDto {
     @JsonProperty("end_time")
     private Long endTime;
     @JsonProperty("real_time")
-    private int realTime;
+    private Long realTime;
     private int reps;
     private int sets;
     @JsonProperty("avg_score")

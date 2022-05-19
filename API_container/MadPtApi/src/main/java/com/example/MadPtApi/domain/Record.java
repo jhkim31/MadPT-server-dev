@@ -27,7 +27,7 @@ public class Record {
 
     private LocalDateTime endTime;
 
-    private int realTime;
+    private Long realTime;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
