@@ -51,8 +51,8 @@ public class RecordService {
             Exercise exercise = exerciseRepository.findById(dto.getExerciseId()).orElseThrow(() -> new IllegalArgumentException("no such exercise data"));
 
             // 소모 칼로리 계산
-            Long totalExerciseTime = (dto.getEndTime() - dto.getStartTime()) / 1000;
-            double burnedKcal = getBurnedKcal(totalExerciseTime, dto.getRealTime(), member.getWeight());
+            Long totalExerciseTime = (dto.getEndTime() - dto.getStartTime()); // 밀리초
+            double burnedKcal = calculateBurnedKcal(totalExerciseTime, dto.getRealTime(), member.getWeight());
 
             // timestamp -> LocalDateTime
             LocalDateTime startTime = timestampConverter(dto.getStartTime());
@@ -146,7 +146,9 @@ public class RecordService {
     /**
      * 칼로리 연산
      */
-    public double getBurnedKcal(Long totalTime, int realTime, double weight) {
+    public double calculateBurnedKcal(Long totalTime, Long realTime, double weight) {
+        // realtime = 밀리세컨드
+        // 1초 1000 밀리세컨드
         // 운동 MET = 3.4, 평상시 MET = 1
         double MET = 5;
         // 운동시 산소 소모량

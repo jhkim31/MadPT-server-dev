@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
 class RecordServiceTest {
@@ -37,15 +35,13 @@ class RecordServiceTest {
         Long startTime = 1651826078000L; // 34분
         Long endTime = 1651827038000L; // 50분
 
-        Long totalTime = (endTime - startTime) / 1000; // 초
-        int realTime = 600; // 초
+        Long totalTime = (endTime - startTime); // 밀리초
+        long realTime = 600000L; // 밀리초
         double weight = 70.0;
 
         // when
-        double burnedKcal = recordService.getBurnedKcal(totalTime, realTime, weight);
+        double burnedKcal = recordService.calculateBurnedKcal(totalTime, realTime, weight);
         // then
-        System.out.println(totalTime);
-        System.out.println(realTime/60);
         System.out.println(burnedKcal);
     }
     
