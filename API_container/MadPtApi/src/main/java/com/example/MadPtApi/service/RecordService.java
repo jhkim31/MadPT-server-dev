@@ -151,11 +151,12 @@ public class RecordService {
         // 1초 1000 밀리세컨드
         // 운동 MET = 3.4, 평상시 MET = 1
         double MET = 5;
+
         // 운동시 산소 소모량
-        double oxygenConsumption = (3.5 * MET * weight * (int) (realTime / 60)) / 1000;
+        double oxygenConsumption = 3.5 * MET * weight * ((double) realTime / 1000 / 60.0) / 1000;
 
         // 평상시 산소 소모량
-        oxygenConsumption += 3.5 * 1 * weight * (int) ((totalTime - realTime) / 60) / 1000;
+         oxygenConsumption += 3.5 * 1 * weight * ((double)(totalTime - realTime) / 1000 / 60.0) / 1000;
 
         // 총 소모 칼로리
         double burnedKcal = oxygenConsumption * 5;
