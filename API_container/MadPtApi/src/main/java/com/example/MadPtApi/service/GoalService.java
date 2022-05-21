@@ -18,6 +18,20 @@ public class GoalService {
     private final MemberRepository memberRepository;
 
     /**
+     * 목표 초기화
+     */
+    @Transactional
+    public void setGoal(Member member) {
+        Goal goal = Goal.builder()
+                .member(member)
+                .dietKcal(0.0)
+                .exerciseKcal(0.0)
+                .weight(0.0)
+                .build();
+        goalRepository.save(goal);
+    }
+
+    /**
      * 목표 저장
      */
     @Transactional

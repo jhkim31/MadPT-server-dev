@@ -16,10 +16,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -80,6 +77,12 @@ public class DietService {
     // 식단 삭제
 
     /**
+     *Enum -> String[] 변환 메서드
+     */
+    public static String[] getNames(Class<? extends Enum<?>> e) {
+        return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
+    }
+    /**
      * 일별 섭취 칼로리 조회
      */
     public HashMap<String, Double> getDietKcal(Long clientId, Long date) {
@@ -87,6 +90,10 @@ public class DietService {
 
         HashMap<String, Double> hashMap = new HashMap<>();
 
+        String[] dietTypeList = getNames(DietType.class);
+        for (String s : dietTypeList) {
+            hashMap.put(s, 0.0);
+        }
         for (DailyDietDto dto : dailyDietDtoList) {
             double totalKcal = dto.getSimpleDietKcal();
             for (DietFoodDto dietFoodDto : dto.getDietFoodDtoList()) {
