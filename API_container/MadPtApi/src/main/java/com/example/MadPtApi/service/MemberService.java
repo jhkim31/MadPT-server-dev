@@ -1,6 +1,7 @@
 package com.example.MadPtApi.service;
 
 import com.example.MadPtApi.domain.GenderType;
+import com.example.MadPtApi.domain.Goal;
 import com.example.MadPtApi.domain.Member;
 import com.example.MadPtApi.dto.memberDto.MemberSignUpDto;
 import com.example.MadPtApi.repository.MemberRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final GoalService goalService;
 
     /*
      * 회원 가입
@@ -31,6 +33,10 @@ public class MemberService {
                 .build();
 
         memberRepository.save(member);
+
+        // 회원 가입시 회원 목표 초기화
+        goalService.setGoal(member);
+
         return member.getId();
     }
 /*
