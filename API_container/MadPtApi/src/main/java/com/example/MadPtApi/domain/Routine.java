@@ -24,9 +24,11 @@ public class Routine {
     private Member member;
 
     private String name;
+
     private LocalDateTime date;
+
     private int breaktime;
-    // ExerciseRoutine
+
     @OneToMany(mappedBy = "routine", cascade = CascadeType.ALL)
     private List<RoutineExercise> routineExerciseList;
 

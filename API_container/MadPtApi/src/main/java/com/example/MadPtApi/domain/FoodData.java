@@ -18,5 +18,4 @@ public class FoodData {
     private double defaultCarbohydrate;
     private double defaultProtein;
     private double defaultFat;
-
 }
