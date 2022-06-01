@@ -26,6 +26,8 @@ public class Goal {
     private Member member;
 
     private double dietKcal;
+
     private double exerciseKcal;
+
     private double weight;
 }
