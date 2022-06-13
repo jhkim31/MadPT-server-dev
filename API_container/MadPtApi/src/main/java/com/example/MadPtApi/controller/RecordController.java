@@ -14,7 +14,7 @@ public class RecordController {
     private final RecordService recordService;
 
     @PostMapping("/result")
-    public PostResponseDto saveRecord(@RequestHeader("member_id") Long id, @RequestBody RecordSaveRequestDto recordRequestDto) {
+    public PostResponseDto saveRecord(@RequestHeader("Member-Id") Long id, @RequestBody RecordSaveRequestDto recordRequestDto) {
 
         // record Service
         int resultSize = recordService.saveRecord(id, recordRequestDto);

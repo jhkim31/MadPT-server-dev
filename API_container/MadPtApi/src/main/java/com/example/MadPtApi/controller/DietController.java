@@ -18,7 +18,7 @@ public class DietController {
     private final DietService dietService;
 
     @PostMapping
-    public PostResponseDto saveDiet(@RequestHeader("member_id") Long id, @RequestBody DietSaveRequestDto dietSaveRequestDto) {
+    public PostResponseDto saveDiet(@RequestHeader("Member-Id") Long id, @RequestBody DietSaveRequestDto dietSaveRequestDto) {
         // timestamp -> LocalDateTime 변환
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(dietSaveRequestDto.getDate()), TimeZone.getDefault().toZoneId());
 

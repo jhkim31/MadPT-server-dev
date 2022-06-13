@@ -28,7 +28,7 @@ public class StatisticController {
      * 일별 식단 조회
      */
     @GetMapping("/diet")
-    public DailyDietListResponseDto getDiet(@RequestHeader("member_id") Long id, @RequestParam Long date) {
+    public DailyDietListResponseDto getDiet(@RequestHeader("Member-Id") Long id, @RequestParam Long date) {
         List<DailyDietDto> dailyDietDtos = dietService.findDiet(id, date);
         return DailyDietListResponseDto.builder().dailyDietList(dailyDietDtos).build();
     }
@@ -37,7 +37,7 @@ public class StatisticController {
      * 일별 운동 기록 조회
      */
     @GetMapping("/record")
-    public DailyRecordListResponseDto getRecord(@RequestHeader("member_id") Long id, @RequestParam Long date) {
+    public DailyRecordListResponseDto getRecord(@RequestHeader("Member-Id") Long id, @RequestParam Long date) {
         List<DailyRecordResponseDto> recordResponseDtoList = recordService.findRecord(id, date);
         return DailyRecordListResponseDto.builder().recordResponseDtoList(recordResponseDtoList).build();
     }
@@ -48,7 +48,7 @@ public class StatisticController {
      * @return
      */
     @GetMapping("/day-summary")
-    public DailySummaryDto getDailyData(@RequestHeader("member_id") Long id, @RequestParam Long date) {
+    public DailySummaryDto getDailyData(@RequestHeader("Member-Id") Long id, @RequestParam Long date) {
         return statisticService.getDailyTotalData(id, date);
     }
 
@@ -56,7 +56,7 @@ public class StatisticController {
      * 월별 데이터 받아오기
      */
     @GetMapping("/calendar")
-    public CalendarDto getCalendarData(@RequestHeader("member_id") Long id, @RequestParam Long date) {
+    public CalendarDto getCalendarData(@RequestHeader("Member-Id") Long id, @RequestParam Long date) {
         List<CalendarDailyDto> monthlyData = statisticService.getMonthlyData(id, date);
         return CalendarDto.builder().dailyDtoList(monthlyData).build();
     }
