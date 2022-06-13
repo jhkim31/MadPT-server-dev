@@ -20,6 +20,7 @@ public class RoutineExercise {
     private Long id;
 
     private int reps;
+
     private int sets;
 
     @ManyToOne(fetch = LAZY)
@@ -29,11 +30,5 @@ public class RoutineExercise {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "routine_id")
     private Routine routine;
-
-/*    public void setRoutine(Routine routine) {
-        this.routine = routine;
-        routine.getExerciseRoutineList().add(this);
-    }*/
-
 
 }

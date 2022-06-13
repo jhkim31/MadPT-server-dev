@@ -17,7 +17,7 @@ public class GoalController {
      * 목표 저장
      */
     @PostMapping
-    public PostResponseDto saveGaol(@RequestHeader("member_id") Long id, @RequestBody GoalSaveRequestDto goalSaveRequestDto) {
+    public PostResponseDto saveGaol(@RequestHeader("Member-Id") Long id, @RequestBody GoalSaveRequestDto goalSaveRequestDto) {
         Long goalId = goalService.saveGoal(id, goalSaveRequestDto);
 
         PostResponseDto postResponseDto;

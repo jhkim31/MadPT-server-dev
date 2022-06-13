@@ -1,13 +1,13 @@
--- MariaDB dump 10.19  Distrib 10.7.3-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.5.15-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: MadPT
 -- ------------------------------------------------------
--- Server version	10.7.3-MariaDB-1:10.7.3+maria~focal
+-- Server version	10.5.15-MariaDB-1:10.5.15+maria~focal
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -35,6 +35,7 @@ CREATE TABLE `diet` (
   `diet_date` datetime(6) DEFAULT NULL,
   `diet_type` varchar(255) DEFAULT NULL,
   `member_id` bigint(20) DEFAULT NULL,
+  `simple_total_kcal` double NOT NULL,
   PRIMARY KEY (`diet_id`),
   KEY `FK9o446srb6o6fm3lklugo9mq0v` (`member_id`),
   CONSTRAINT `FK9o446srb6o6fm3lklugo9mq0v` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
@@ -64,6 +65,7 @@ CREATE TABLE `diet_food` (
   `unit` varchar(255) DEFAULT NULL,
   `diet_id` bigint(20) DEFAULT NULL,
   `food_id` bigint(20) DEFAULT NULL,
+  `diet_kcal` double NOT NULL,
   PRIMARY KEY (`diet_food_id`),
   KEY `FKg8ebdt611y8sqd6pa4e47bnqq` (`diet_id`),
   KEY `FKn0gmvmwvs43r9cs0ihtoaieni` (`food_id`),
@@ -148,7 +150,7 @@ CREATE TABLE `food` (
   `is_custom` bit(1) NOT NULL,
   `maker_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`food_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,6 +160,34 @@ CREATE TABLE `food` (
 LOCK TABLES `food` WRITE;
 /*!40000 ALTER TABLE `food` DISABLE KEYS */;
 /*!40000 ALTER TABLE `food` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `goal`
+--
+
+DROP TABLE IF EXISTS `goal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `goal` (
+  `gaol_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `diet_kcal` double NOT NULL,
+  `exercise_kcal` double NOT NULL,
+  `weight` double NOT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`gaol_id`),
+  KEY `FK62jdhr16mniv5cf7pd2gtc79y` (`member_id`),
+  CONSTRAINT `FK62jdhr16mniv5cf7pd2gtc79y` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `goal`
+--
+
+LOCK TABLES `goal` WRITE;
+/*!40000 ALTER TABLE `goal` DISABLE KEYS */;
+/*!40000 ALTER TABLE `goal` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -173,6 +203,7 @@ CREATE TABLE `member` (
   `height` double NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `weight` double NOT NULL,
+  `client_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -200,6 +231,11 @@ CREATE TABLE `record` (
   `start_time` datetime(6) DEFAULT NULL,
   `exercise_id` bigint(20) DEFAULT NULL,
   `member_id` bigint(20) DEFAULT NULL,
+  `avg_score` double NOT NULL,
+  `break_time` int(11) NOT NULL,
+  `burned_kcal` double NOT NULL,
+  `real_time` bigint(20) DEFAULT NULL,
+  `sets` int(11) NOT NULL,
   PRIMARY KEY (`record_id`),
   KEY `FKjs1jiif7ahtops6jfwdw17ip1` (`exercise_id`),
   KEY `FKt0rib4n7orlcfx52cnsicmriw` (`member_id`),
@@ -216,6 +252,64 @@ LOCK TABLES `record` WRITE;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `routine`
+--
+
+DROP TABLE IF EXISTS `routine`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `routine` (
+  `routine_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `breaktime` int(11) NOT NULL,
+  `date` datetime(6) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`routine_id`),
+  KEY `FK546lpheu7wdmjm1fj26wpyno2` (`member_id`),
+  CONSTRAINT `FK546lpheu7wdmjm1fj26wpyno2` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `routine`
+--
+
+LOCK TABLES `routine` WRITE;
+/*!40000 ALTER TABLE `routine` DISABLE KEYS */;
+/*!40000 ALTER TABLE `routine` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `routine_exercise`
+--
+
+DROP TABLE IF EXISTS `routine_exercise`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `routine_exercise` (
+  `routine_exercise_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `reps` int(11) NOT NULL,
+  `sets` int(11) NOT NULL,
+  `exercise_id` bigint(20) DEFAULT NULL,
+  `routine_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`routine_exercise_id`),
+  KEY `FKsn88y4ra5dickg7y7x3ouhykf` (`exercise_id`),
+  KEY `FKcbc9ikf3pspchwepg7x4lqm9s` (`routine_id`),
+  CONSTRAINT `FKcbc9ikf3pspchwepg7x4lqm9s` FOREIGN KEY (`routine_id`) REFERENCES `routine` (`routine_id`),
+  CONSTRAINT `FKsn88y4ra5dickg7y7x3ouhykf` FOREIGN KEY (`exercise_id`) REFERENCES `exercise` (`exercise_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `routine_exercise`
+--
+
+LOCK TABLES `routine_exercise` WRITE;
+/*!40000 ALTER TABLE `routine_exercise` DISABLE KEYS */;
+/*!40000 ALTER TABLE `routine_exercise` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -226,4 +320,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-27 11:58:14
+-- Dump completed on 2022-05-24  7:02:07

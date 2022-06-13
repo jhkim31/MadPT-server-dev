@@ -23,10 +23,13 @@ public class DietFood {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "food_id")
     private Food food;
+
     private double dietKcal;
+
     private double foodWeight;
-    // 예) 1컵, 1그릇
+
     private String unit;
+
     private int count;
 
     //==생성 메서드==//
@@ -44,7 +47,6 @@ public class DietFood {
     //==비지니스 로직==//
     public double getKcal() {
         double kcal = food.getFoodData().getDefaultKcal();
-        // 음식 데이터 다시 까봐야됌
         return 0;
     }
 }

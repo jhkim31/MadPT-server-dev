@@ -24,7 +24,6 @@ public class Diet {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    // dietfood
     @OneToMany(mappedBy = "diet", cascade = CascadeType.ALL)
     private List<DietFood> dietFoodList = new ArrayList<>();
 

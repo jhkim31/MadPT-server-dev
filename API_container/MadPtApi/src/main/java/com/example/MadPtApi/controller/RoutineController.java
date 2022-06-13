@@ -23,7 +23,7 @@ public class RoutineController {
     private final RoutineService routineService;
 
     @PostMapping()
-    public PostResponseDto saveRoutine(@RequestHeader("member_id") Long id, @RequestBody RoutineSaveRequestDto routineSaveRequestDto) {
+    public PostResponseDto saveRoutine(@RequestHeader("Member-Id") Long id, @RequestBody RoutineSaveRequestDto routineSaveRequestDto) {
         Long routineId = routineService.saveRoutine(id, routineSaveRequestDto);
 
         PostResponseDto postResponseDto;
@@ -45,7 +45,7 @@ public class RoutineController {
     }
 
     @GetMapping
-    public RoutineResponseDto getRoutine(@RequestHeader("member_id") Long id) {
+    public RoutineResponseDto getRoutine(@RequestHeader("Member-Id") Long id) {
         List<Routine> routineList = routineService.getRoutine(id);
 
         List<RoutineDto> routineDtoList = new ArrayList<>();

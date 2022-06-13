@@ -20,7 +20,7 @@ public class MemberController {
      * 회원 가입
      */
     @PostMapping("/sign-up")
-    public PostResponseDto singUp(@RequestHeader("member_id") Long clientId, @RequestBody MemberSignUpDto memberSignUpDto) {
+    public PostResponseDto singUp(@RequestHeader("Member-Id") Long clientId, @RequestBody MemberSignUpDto memberSignUpDto) {
         Long memberId = memberService.join(clientId, memberSignUpDto);
         PostResponseDto postResponseDto;
         if (memberId != 0L) {
@@ -44,7 +44,7 @@ public class MemberController {
      * 로그인
      */
     @GetMapping("/login")
-    public boolean login(@RequestHeader("member_id") Long clientId) {
+    public boolean login(@RequestHeader("Member-Id") Long clientId) {
         boolean loginCheck = false;
         if (memberService.findMember(clientId) != null) {
             loginCheck = true;
@@ -56,12 +56,12 @@ public class MemberController {
      * 회원 몸무게 수정
      */
     @PostMapping("/update-weight")
-    public void updateMemberWeight(@RequestHeader("member_id") Long clientId, @RequestBody MemberWeightUpdateDto memberWeightUpdateDto) {
+    public void updateMemberWeight(@RequestHeader("Member-Id") Long clientId, @RequestBody MemberWeightUpdateDto memberWeightUpdateDto) {
         memberService.updateMemberWeight(clientId, memberWeightUpdateDto.getWeight());
     }
 
     @GetMapping("/info")
-    public MemberInfoDto getMemberInfo(@RequestHeader("member_id") Long clientId) {
+    public MemberInfoDto getMemberInfo(@RequestHeader("Member-Id") Long clientId) {
         Member member = memberService.findMember(clientId);
         MemberInfoDto memberInfoDto = MemberInfoDto.builder()
                 .name(member.getName())

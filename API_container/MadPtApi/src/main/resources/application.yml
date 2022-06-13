@@ -3,14 +3,14 @@
 # config로 숨기는 방법 찾아오기
 spring:
     datasource:
-        url: jdbc:mariadb://3.34.84.136:3306/MadPT
+        url: jdbc:mariadb://MASTER_SLAVE:3306/MadPT
         username: root
         password: 1234
         driver-class-name: org.mariadb.jdbc.Driver
 
     jpa:
         hibernate:
-            ddl-auto: update #테이블 자동 생성
+            ddl-auto: update
         properties:
             hibernate:
                 #        show_sql : true
@@ -19,5 +19,3 @@ spring:
 logging.level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
-
-
