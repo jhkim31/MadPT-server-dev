@@ -9,6 +9,7 @@ RUN apt-get upgrade -y
 RUN apt-get install vim -y
 
 WORKDIR /workspace/MadPtApi
+RUN sed -i 's/MASTER_SLAVE/db-master-service/g' ./src/main/resources/application.yml
 RUN chmod 755 gradlew
 RUN ./gradlew build
 
