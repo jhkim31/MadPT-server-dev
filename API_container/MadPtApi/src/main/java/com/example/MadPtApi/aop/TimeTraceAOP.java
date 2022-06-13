@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Component //이것도 가능함 but 스프링 빈에 직접 등록하는걸 선호함
+@Component
 public class TimeTraceAOP {
 
     @Around("execution(* com.example..*(..))") // 타겟 지정
