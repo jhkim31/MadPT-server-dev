@@ -66,6 +66,6 @@ class MemberServiceTest {
         // when
         Member member = memberService.findMember(1L);
         // then
-        assertEquals(1L, member.getId());
+        assertEquals(2L, member.getId());
     }
 }

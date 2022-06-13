@@ -23,7 +23,6 @@ public class DietController {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(dietSaveRequestDto.getDate()), TimeZone.getDefault().toZoneId());
 
         Long diet_id = dietService.addDietList(id, localDateTime, dietSaveRequestDto.getSimpleTotalKcal(), dietSaveRequestDto.getDietType(), dietSaveRequestDto.getDietList());
-        System.out.println("diet saved : " + diet_id);
         PostResponseDto postResponseDto;
         if (diet_id != 0L) {
             postResponseDto = PostResponseDto.builder()
