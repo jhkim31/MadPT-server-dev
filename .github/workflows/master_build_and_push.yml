@@ -22,25 +22,6 @@ jobs:
         run: |
           sed -i 's/MADPT_VERSION/${{secrets.VERSION}}/g' ./Script/update_script.sh
 
-      - name: Login to Dockerhub
-        uses: docker/login-action@v1
-        with:
-          username: ${{secrets.DOCKERHUB_USERNAME}}
-          password: ${{secrets.DOCKERHUB_TOKEN}}
-
-      - name: GET API Container Build and Push
-        uses: docker/build-push-action@v2
-        with:
-          file: ./API_container/GETDockerfile
-          push: true
-          tags: jhkimdocker/capstone_get_api_image:${{secrets.VERSION}}
-          
-      - name: POST API Container Build and Push
-        uses: docker/build-push-action@v2
-        with:
-          file: ./API_container/POSTDockerfile
-          push: true
-          tags: jhkimdocker/capstone_post_api_image:${{secrets.VERSION}}
 
       - name: make zip
         run: zip -r ./${{secrets.AWS_S3_DEPLOY_ITEM}} ./Script
