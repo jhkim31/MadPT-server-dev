@@ -202,7 +202,6 @@ public class DietService {
             fat = Math.round(foodData.getDefaultFat() * ratio * 100) / 100.0;
         }
 
-
         // FoodSimpleDataDto 생성
         FoodSimpleDataDto foodSimpleDataDto;
 

@@ -149,7 +149,7 @@ public class RecordService {
     public double calculateBurnedKcal(Long totalTime, Long realTime, double weight) {
         // realtime = 밀리세컨드
         // 1초 1000 밀리세컨드
-        // 운동 MET = 3.4, 평상시 MET = 1
+        // 운동 MET = 5, 평상시 MET = 1
         double MET = 5;
 
         // 운동시 산소 소모량

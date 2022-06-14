@@ -26,7 +26,7 @@ class FoodServiceTest {
     public void 음식_리스트_조회() throws Exception {
         // given
         Food food1 = Food.builder()
-                .foodName("제육볶음")
+                .foodName("test001")
                 .makerName("CJ")
                 .foodData(FoodData.builder()
                         .defaultKcal(45.2)
@@ -37,7 +37,7 @@ class FoodServiceTest {
                 .build();
 
         Food food2 = Food.builder()
-                .foodName("제육")
+                .foodName("test002")
                 .makerName("롯데")
                 .foodData(FoodData.builder()
                         .defaultKcal(45.2)
@@ -52,7 +52,7 @@ class FoodServiceTest {
         foodService.saveFood(food2);
 
         // then
-        List<Food> list = foodService.findFoods("제육");
+        List<Food> list = foodService.findFoods("test");
         assertEquals(2, list.size());
     }
     @Test

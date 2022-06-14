@@ -6,6 +6,7 @@ import com.example.MadPtApi.domain.Routine;
 import com.example.MadPtApi.domain.RoutineExercise;
 import com.example.MadPtApi.repository.ExerciseRepository;
 import com.example.MadPtApi.repository.MemberRepository;
+import com.example.MadPtApi.repository.RoutineRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,9 @@ class RoutineServiceTest {
     RoutineService routineService;
     @Autowired
     ExerciseRepository exerciseRepository;
+    @Autowired
+    RoutineRepository routineRepository;
+
     /**
      * 루틴 조회
      */
@@ -50,6 +54,7 @@ class RoutineServiceTest {
                 .build();
 
         routine.setRoutineExercise(routineExercise);
+        routineRepository.save(routine);
 
         // when
         List<Routine> routineList = routineService.getRoutine(member.getClientId());
