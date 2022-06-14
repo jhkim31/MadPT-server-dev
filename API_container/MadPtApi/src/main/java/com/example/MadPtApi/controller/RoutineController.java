@@ -55,7 +55,7 @@ public class RoutineController {
 
             for (RoutineExercise routineExercise : routine.getRoutineExerciseList()) {
                 routineExerciseDto = RoutineExerciseDto.builder()
-                        .exerciseId(routineExercise.getId())
+                        .exerciseId(routineExercise.getExercise().getId())
                         .reps(routineExercise.getReps())
                         .sets(routineExercise.getSets())
                         .build();
