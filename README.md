@@ -32,7 +32,7 @@ release/v{version} 형태 입니다.
 
 
 # Github Actions
-현재 두가지 workflow가 존재합니다.
+현재, 두가지 workflow가 존재합니다.
 
 ## 1. Docker 빌드 테스트 workflow
 docker 컨테이너의 빌드를 테스트하는 워크플로우로, release브랜치의 push시 실행됩니다.
